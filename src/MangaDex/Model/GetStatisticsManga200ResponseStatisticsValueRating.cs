@@ -18,9 +18,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 
@@ -48,6 +47,7 @@ namespace MangaDex.Model
         /// </summary>
         /// <value>Will be nullable if no ratings has been done</value>
         [DataMember(Name = "average", EmitDefaultValue = true)]
+        [JsonPropertyName("average")]
         public decimal? Average { get; set; }
 
         /// <summary>
@@ -55,6 +55,8 @@ namespace MangaDex.Model
         /// </summary>
         /// <value>Average weighted on all the Manga population</value>
         [DataMember(Name = "bayesian", EmitDefaultValue = false)]
+        [JsonPropertyName("bayesian")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public decimal Bayesian { get; set; }
 
         /// <summary>
@@ -77,7 +79,7 @@ namespace MangaDex.Model
         /// <returns>JSON string presentation of the object</returns>
         public virtual string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return System.Text.Json.JsonSerializer.Serialize(this, MangaDex.Client.SerializerOptions.Indented);
         }
 
         /// <summary>

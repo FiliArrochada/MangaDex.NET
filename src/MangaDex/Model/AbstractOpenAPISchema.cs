@@ -10,8 +10,9 @@
 
 
 using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using MangaDex.Client;
 
 namespace MangaDex.Model
 {
@@ -21,38 +22,40 @@ namespace MangaDex.Model
     public abstract partial class AbstractOpenAPISchema
     {
         /// <summary>
-        ///  Custom JSON serializer
+        ///  Custom JSON serializer. Unknown members are disallowed so that oneOf/anyOf
+        ///  candidate types only match when the payload maps exactly, mirroring the previous
+        ///  Newtonsoft <c>MissingMemberHandling.Error</c> behaviour.
         /// </summary>
-        static public readonly JsonSerializerSettings SerializerSettings = new JsonSerializerSettings
-        {
-            // OpenAPI generated types generally hide default constructors.
-            ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
-            MissingMemberHandling = MissingMemberHandling.Error,
-            ContractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new CamelCaseNamingStrategy
-                {
-                    OverrideSpecifiedNames = false
-                }
-            }
-        };
+        static public readonly JsonSerializerOptions SerializerSettings = BuildStrictOptions();
 
         /// <summary>
-        ///  Custom JSON serializer for objects with additional properties
+        ///  Custom JSON serializer for objects with additional properties (unknown members ignored).
         /// </summary>
-        static public readonly JsonSerializerSettings AdditionalPropertiesSerializerSettings = new JsonSerializerSettings
+        static public readonly JsonSerializerOptions AdditionalPropertiesSerializerSettings = BuildLenientOptions();
+
+        private static JsonSerializerOptions BuildStrictOptions()
         {
-            // OpenAPI generated types generally hide default constructors.
-            ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
-            MissingMemberHandling = MissingMemberHandling.Ignore,
-            ContractResolver = new DefaultContractResolver
+            // No AllowReadingFromString: keeps oneOf/anyOf candidates mutually exclusive by JSON
+            // shape (e.g. a quoted number must not also match an `int` candidate).
+            var options = new JsonSerializerOptions
             {
-                NamingStrategy = new CamelCaseNamingStrategy
-                {
-                    OverrideSpecifiedNames = false
-                }
-            }
-        };
+                PropertyNameCaseInsensitive = true,
+                UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow
+            };
+            options.Converters.Add(new StringEnumMemberConverter());
+            return options;
+        }
+
+        private static JsonSerializerOptions BuildLenientOptions()
+        {
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                NumberHandling = JsonNumberHandling.AllowReadingFromString
+            };
+            options.Converters.Add(new StringEnumMemberConverter());
+            return options;
+        }
 
         /// <summary>
         /// Gets or Sets the actual instance

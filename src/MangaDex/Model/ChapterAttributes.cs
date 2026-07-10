@@ -18,9 +18,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 
@@ -67,18 +66,21 @@ namespace MangaDex.Model
         /// Gets or Sets Title
         /// </summary>
         [DataMember(Name = "title", EmitDefaultValue = true)]
+        [JsonPropertyName("title")]
         public string Title { get; set; }
 
         /// <summary>
         /// Gets or Sets Volume
         /// </summary>
         [DataMember(Name = "volume", EmitDefaultValue = true)]
+        [JsonPropertyName("volume")]
         public string Volume { get; set; }
 
         /// <summary>
         /// Gets or Sets Chapter
         /// </summary>
         [DataMember(Name = "chapter", EmitDefaultValue = true)]
+        [JsonPropertyName("chapter")]
         public string Chapter { get; set; }
 
         /// <summary>
@@ -86,18 +88,24 @@ namespace MangaDex.Model
         /// </summary>
         /// <value>Count of readable images for this chapter</value>
         [DataMember(Name = "pages", EmitDefaultValue = false)]
+        [JsonPropertyName("pages")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int Pages { get; set; }
 
         /// <summary>
         /// Gets or Sets TranslatedLanguage
         /// </summary>
         [DataMember(Name = "translatedLanguage", EmitDefaultValue = false)]
+        [JsonPropertyName("translatedLanguage")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string TranslatedLanguage { get; set; }
 
         /// <summary>
         /// Gets or Sets Uploader
         /// </summary>
         [DataMember(Name = "uploader", EmitDefaultValue = false)]
+        [JsonPropertyName("uploader")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Guid Uploader { get; set; }
 
         /// <summary>
@@ -105,36 +113,47 @@ namespace MangaDex.Model
         /// </summary>
         /// <value>Denotes a chapter that links to an external source.</value>
         [DataMember(Name = "externalUrl", EmitDefaultValue = true)]
+        [JsonPropertyName("externalUrl")]
         public string ExternalUrl { get; set; }
 
         /// <summary>
         /// Gets or Sets VarVersion
         /// </summary>
         [DataMember(Name = "version", EmitDefaultValue = false)]
+        [JsonPropertyName("version")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int VarVersion { get; set; }
 
         /// <summary>
         /// Gets or Sets CreatedAt
         /// </summary>
         [DataMember(Name = "createdAt", EmitDefaultValue = false)]
+        [JsonPropertyName("createdAt")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string CreatedAt { get; set; }
 
         /// <summary>
         /// Gets or Sets UpdatedAt
         /// </summary>
         [DataMember(Name = "updatedAt", EmitDefaultValue = false)]
+        [JsonPropertyName("updatedAt")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string UpdatedAt { get; set; }
 
         /// <summary>
         /// Gets or Sets PublishAt
         /// </summary>
         [DataMember(Name = "publishAt", EmitDefaultValue = false)]
+        [JsonPropertyName("publishAt")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string PublishAt { get; set; }
 
         /// <summary>
         /// Gets or Sets ReadableAt
         /// </summary>
         [DataMember(Name = "readableAt", EmitDefaultValue = false)]
+        [JsonPropertyName("readableAt")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string ReadableAt { get; set; }
 
         /// <summary>
@@ -167,7 +186,7 @@ namespace MangaDex.Model
         /// <returns>JSON string presentation of the object</returns>
         public virtual string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return System.Text.Json.JsonSerializer.Serialize(this, MangaDex.Client.SerializerOptions.Indented);
         }
 
         /// <summary>

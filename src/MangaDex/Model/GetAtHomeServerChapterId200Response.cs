@@ -18,9 +18,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 
@@ -50,6 +49,8 @@ namespace MangaDex.Model
         /// Gets or Sets Result
         /// </summary>
         [DataMember(Name = "result", EmitDefaultValue = false)]
+        [JsonPropertyName("result")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string Result { get; set; }
 
         /// <summary>
@@ -57,12 +58,16 @@ namespace MangaDex.Model
         /// </summary>
         /// <value>The base URL to construct final image URLs from. The URL returned is valid for the requested chapter only, and for a duration of 15 minutes from the time of the response.</value>
         [DataMember(Name = "baseUrl", EmitDefaultValue = false)]
+        [JsonPropertyName("baseUrl")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string BaseUrl { get; set; }
 
         /// <summary>
         /// Gets or Sets Chapter
         /// </summary>
         [DataMember(Name = "chapter", EmitDefaultValue = false)]
+        [JsonPropertyName("chapter")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public GetAtHomeServerChapterId200ResponseChapter Chapter { get; set; }
 
         /// <summary>
@@ -86,7 +91,7 @@ namespace MangaDex.Model
         /// <returns>JSON string presentation of the object</returns>
         public virtual string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return System.Text.Json.JsonSerializer.Serialize(this, MangaDex.Client.SerializerOptions.Indented);
         }
 
         /// <summary>

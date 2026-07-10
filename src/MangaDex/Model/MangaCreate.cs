@@ -18,9 +18,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 
@@ -35,7 +34,7 @@ namespace MangaDex.Model
         /// <summary>
         /// Defines PublicationDemographic
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(MangaDex.Client.StringEnumMemberConverter))]
         public enum PublicationDemographicEnum
         {
             /// <summary>
@@ -68,11 +67,12 @@ namespace MangaDex.Model
         /// Gets or Sets PublicationDemographic
         /// </summary>
         [DataMember(Name = "publicationDemographic", EmitDefaultValue = true)]
+        [JsonPropertyName("publicationDemographic")]
         public PublicationDemographicEnum? PublicationDemographic { get; set; }
         /// <summary>
         /// Defines Status
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(MangaDex.Client.StringEnumMemberConverter))]
         public enum StatusEnum
         {
             /// <summary>
@@ -109,7 +109,7 @@ namespace MangaDex.Model
         /// <summary>
         /// Defines ContentRating
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(MangaDex.Client.StringEnumMemberConverter))]
         public enum ContentRatingEnum
         {
             /// <summary>
@@ -209,30 +209,40 @@ namespace MangaDex.Model
         /// Gets or Sets AltTitles
         /// </summary>
         [DataMember(Name = "altTitles", EmitDefaultValue = false)]
+        [JsonPropertyName("altTitles")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public List<Dictionary<string, string>> AltTitles { get; set; }
 
         /// <summary>
         /// Gets or Sets Description
         /// </summary>
         [DataMember(Name = "description", EmitDefaultValue = false)]
+        [JsonPropertyName("description")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Dictionary<string, string> Description { get; set; }
 
         /// <summary>
         /// Gets or Sets Authors
         /// </summary>
         [DataMember(Name = "authors", EmitDefaultValue = false)]
+        [JsonPropertyName("authors")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public List<Guid> Authors { get; set; }
 
         /// <summary>
         /// Gets or Sets Artists
         /// </summary>
         [DataMember(Name = "artists", EmitDefaultValue = false)]
+        [JsonPropertyName("artists")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public List<Guid> Artists { get; set; }
 
         /// <summary>
         /// Gets or Sets Links
         /// </summary>
         [DataMember(Name = "links", EmitDefaultValue = false)]
+        [JsonPropertyName("links")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Dictionary<string, string> Links { get; set; }
 
         /// <summary>
@@ -245,12 +255,14 @@ namespace MangaDex.Model
         /// Gets or Sets LastVolume
         /// </summary>
         [DataMember(Name = "lastVolume", EmitDefaultValue = true)]
+        [JsonPropertyName("lastVolume")]
         public string LastVolume { get; set; }
 
         /// <summary>
         /// Gets or Sets LastChapter
         /// </summary>
         [DataMember(Name = "lastChapter", EmitDefaultValue = true)]
+        [JsonPropertyName("lastChapter")]
         public string LastChapter { get; set; }
 
         /// <summary>
@@ -258,30 +270,37 @@ namespace MangaDex.Model
         /// </summary>
         /// <value>Year of release</value>
         [DataMember(Name = "year", EmitDefaultValue = true)]
+        [JsonPropertyName("year")]
         public int? Year { get; set; }
 
         /// <summary>
         /// Gets or Sets ChapterNumbersResetOnNewVolume
         /// </summary>
         [DataMember(Name = "chapterNumbersResetOnNewVolume", EmitDefaultValue = true)]
+        [JsonPropertyName("chapterNumbersResetOnNewVolume")]
         public bool ChapterNumbersResetOnNewVolume { get; set; }
 
         /// <summary>
         /// Gets or Sets Tags
         /// </summary>
         [DataMember(Name = "tags", EmitDefaultValue = false)]
+        [JsonPropertyName("tags")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public List<Guid> Tags { get; set; }
 
         /// <summary>
         /// Gets or Sets PrimaryCover
         /// </summary>
         [DataMember(Name = "primaryCover", EmitDefaultValue = true)]
+        [JsonPropertyName("primaryCover")]
         public Guid? PrimaryCover { get; set; }
 
         /// <summary>
         /// Gets or Sets VarVersion
         /// </summary>
         [DataMember(Name = "version", EmitDefaultValue = false)]
+        [JsonPropertyName("version")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int VarVersion { get; set; }
 
         /// <summary>
@@ -319,7 +338,7 @@ namespace MangaDex.Model
         /// <returns>JSON string presentation of the object</returns>
         public virtual string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return System.Text.Json.JsonSerializer.Serialize(this, MangaDex.Client.SerializerOptions.Indented);
         }
 
         /// <summary>

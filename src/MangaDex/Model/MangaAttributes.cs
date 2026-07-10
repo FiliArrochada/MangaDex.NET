@@ -18,9 +18,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 
@@ -35,7 +34,7 @@ namespace MangaDex.Model
         /// <summary>
         /// Defines PublicationDemographic
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(MangaDex.Client.StringEnumMemberConverter))]
         public enum PublicationDemographicEnum
         {
             /// <summary>
@@ -68,11 +67,12 @@ namespace MangaDex.Model
         /// Gets or Sets PublicationDemographic
         /// </summary>
         [DataMember(Name = "publicationDemographic", EmitDefaultValue = true)]
+        [JsonPropertyName("publicationDemographic")]
         public PublicationDemographicEnum? PublicationDemographic { get; set; }
         /// <summary>
         /// Defines Status
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(MangaDex.Client.StringEnumMemberConverter))]
         public enum StatusEnum
         {
             /// <summary>
@@ -105,11 +105,13 @@ namespace MangaDex.Model
         /// Gets or Sets Status
         /// </summary>
         [DataMember(Name = "status", EmitDefaultValue = false)]
+        [JsonPropertyName("status")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public StatusEnum? Status { get; set; }
         /// <summary>
         /// Defines ContentRating
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(MangaDex.Client.StringEnumMemberConverter))]
         public enum ContentRatingEnum
         {
             /// <summary>
@@ -142,11 +144,13 @@ namespace MangaDex.Model
         /// Gets or Sets ContentRating
         /// </summary>
         [DataMember(Name = "contentRating", EmitDefaultValue = false)]
+        [JsonPropertyName("contentRating")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public ContentRatingEnum? ContentRating { get; set; }
         /// <summary>
         /// Defines State
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(MangaDex.Client.StringEnumMemberConverter))]
         public enum StateEnum
         {
             /// <summary>
@@ -179,6 +183,8 @@ namespace MangaDex.Model
         /// Gets or Sets State
         /// </summary>
         [DataMember(Name = "state", EmitDefaultValue = false)]
+        [JsonPropertyName("state")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public StateEnum? State { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="MangaAttributes" /> class.
@@ -231,48 +237,61 @@ namespace MangaDex.Model
         /// Gets or Sets Title
         /// </summary>
         [DataMember(Name = "title", EmitDefaultValue = false)]
+        [JsonPropertyName("title")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Dictionary<string, string> Title { get; set; }
 
         /// <summary>
         /// Gets or Sets AltTitles
         /// </summary>
         [DataMember(Name = "altTitles", EmitDefaultValue = false)]
+        [JsonPropertyName("altTitles")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public List<Dictionary<string, string>> AltTitles { get; set; }
 
         /// <summary>
         /// Gets or Sets Description
         /// </summary>
         [DataMember(Name = "description", EmitDefaultValue = false)]
+        [JsonPropertyName("description")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Dictionary<string, string> Description { get; set; }
 
         /// <summary>
         /// Gets or Sets IsLocked
         /// </summary>
         [DataMember(Name = "isLocked", EmitDefaultValue = true)]
+        [JsonPropertyName("isLocked")]
         public bool IsLocked { get; set; }
 
         /// <summary>
         /// Gets or Sets Links
         /// </summary>
         [DataMember(Name = "links", EmitDefaultValue = false)]
+        [JsonPropertyName("links")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Dictionary<string, string> Links { get; set; }
 
         /// <summary>
         /// Gets or Sets OriginalLanguage
         /// </summary>
         [DataMember(Name = "originalLanguage", EmitDefaultValue = false)]
+        [JsonPropertyName("originalLanguage")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string OriginalLanguage { get; set; }
 
         /// <summary>
         /// Gets or Sets LastVolume
         /// </summary>
         [DataMember(Name = "lastVolume", EmitDefaultValue = true)]
+        [JsonPropertyName("lastVolume")]
         public string LastVolume { get; set; }
 
         /// <summary>
         /// Gets or Sets LastChapter
         /// </summary>
         [DataMember(Name = "lastChapter", EmitDefaultValue = true)]
+        [JsonPropertyName("lastChapter")]
         public string LastChapter { get; set; }
 
         /// <summary>
@@ -280,48 +299,62 @@ namespace MangaDex.Model
         /// </summary>
         /// <value>Year of release</value>
         [DataMember(Name = "year", EmitDefaultValue = true)]
+        [JsonPropertyName("year")]
         public int? Year { get; set; }
 
         /// <summary>
         /// Gets or Sets ChapterNumbersResetOnNewVolume
         /// </summary>
         [DataMember(Name = "chapterNumbersResetOnNewVolume", EmitDefaultValue = true)]
+        [JsonPropertyName("chapterNumbersResetOnNewVolume")]
         public bool ChapterNumbersResetOnNewVolume { get; set; }
 
         /// <summary>
         /// Gets or Sets AvailableTranslatedLanguages
         /// </summary>
         [DataMember(Name = "availableTranslatedLanguages", EmitDefaultValue = false)]
+        [JsonPropertyName("availableTranslatedLanguages")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public List<string> AvailableTranslatedLanguages { get; set; }
 
         /// <summary>
         /// Gets or Sets LatestUploadedChapter
         /// </summary>
         [DataMember(Name = "latestUploadedChapter", EmitDefaultValue = false)]
+        [JsonPropertyName("latestUploadedChapter")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Guid LatestUploadedChapter { get; set; }
 
         /// <summary>
         /// Gets or Sets Tags
         /// </summary>
         [DataMember(Name = "tags", EmitDefaultValue = false)]
+        [JsonPropertyName("tags")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public List<Tag> Tags { get; set; }
 
         /// <summary>
         /// Gets or Sets VarVersion
         /// </summary>
         [DataMember(Name = "version", EmitDefaultValue = false)]
+        [JsonPropertyName("version")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int VarVersion { get; set; }
 
         /// <summary>
         /// Gets or Sets CreatedAt
         /// </summary>
         [DataMember(Name = "createdAt", EmitDefaultValue = false)]
+        [JsonPropertyName("createdAt")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string CreatedAt { get; set; }
 
         /// <summary>
         /// Gets or Sets UpdatedAt
         /// </summary>
         [DataMember(Name = "updatedAt", EmitDefaultValue = false)]
+        [JsonPropertyName("updatedAt")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string UpdatedAt { get; set; }
 
         /// <summary>
@@ -362,7 +395,7 @@ namespace MangaDex.Model
         /// <returns>JSON string presentation of the object</returns>
         public virtual string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return System.Text.Json.JsonSerializer.Serialize(this, MangaDex.Client.SerializerOptions.Indented);
         }
 
         /// <summary>

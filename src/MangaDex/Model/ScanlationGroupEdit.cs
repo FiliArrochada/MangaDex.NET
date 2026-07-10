@@ -18,9 +18,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 
@@ -80,90 +79,109 @@ namespace MangaDex.Model
         /// Gets or Sets Name
         /// </summary>
         [DataMember(Name = "name", EmitDefaultValue = false)]
+        [JsonPropertyName("name")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string Name { get; set; }
 
         /// <summary>
         /// Gets or Sets Leader
         /// </summary>
         [DataMember(Name = "leader", EmitDefaultValue = false)]
+        [JsonPropertyName("leader")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Guid Leader { get; set; }
 
         /// <summary>
         /// Gets or Sets Members
         /// </summary>
         [DataMember(Name = "members", EmitDefaultValue = false)]
+        [JsonPropertyName("members")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public List<Guid> Members { get; set; }
 
         /// <summary>
         /// Gets or Sets Website
         /// </summary>
         [DataMember(Name = "website", EmitDefaultValue = true)]
+        [JsonPropertyName("website")]
         public string Website { get; set; }
 
         /// <summary>
         /// Gets or Sets IrcServer
         /// </summary>
         [DataMember(Name = "ircServer", EmitDefaultValue = true)]
+        [JsonPropertyName("ircServer")]
         public string IrcServer { get; set; }
 
         /// <summary>
         /// Gets or Sets IrcChannel
         /// </summary>
         [DataMember(Name = "ircChannel", EmitDefaultValue = true)]
+        [JsonPropertyName("ircChannel")]
         public string IrcChannel { get; set; }
 
         /// <summary>
         /// Gets or Sets Discord
         /// </summary>
         [DataMember(Name = "discord", EmitDefaultValue = true)]
+        [JsonPropertyName("discord")]
         public string Discord { get; set; }
 
         /// <summary>
         /// Gets or Sets ContactEmail
         /// </summary>
         [DataMember(Name = "contactEmail", EmitDefaultValue = true)]
+        [JsonPropertyName("contactEmail")]
         public string ContactEmail { get; set; }
 
         /// <summary>
         /// Gets or Sets Description
         /// </summary>
         [DataMember(Name = "description", EmitDefaultValue = true)]
+        [JsonPropertyName("description")]
         public string Description { get; set; }
 
         /// <summary>
         /// Gets or Sets Twitter
         /// </summary>
         [DataMember(Name = "twitter", EmitDefaultValue = true)]
+        [JsonPropertyName("twitter")]
         public string Twitter { get; set; }
 
         /// <summary>
         /// Gets or Sets MangaUpdates
         /// </summary>
         [DataMember(Name = "mangaUpdates", EmitDefaultValue = true)]
+        [JsonPropertyName("mangaUpdates")]
         public string MangaUpdates { get; set; }
 
         /// <summary>
         /// Gets or Sets FocusedLanguages
         /// </summary>
         [DataMember(Name = "focusedLanguages", EmitDefaultValue = true)]
+        [JsonPropertyName("focusedLanguages")]
         public List<string> FocusedLanguages { get; set; }
 
         /// <summary>
         /// Gets or Sets Inactive
         /// </summary>
         [DataMember(Name = "inactive", EmitDefaultValue = true)]
+        [JsonPropertyName("inactive")]
         public bool Inactive { get; set; }
 
         /// <summary>
         /// Gets or Sets Locked
         /// </summary>
         [DataMember(Name = "locked", EmitDefaultValue = true)]
+        [JsonPropertyName("locked")]
         public bool Locked { get; set; }
 
         /// <summary>
         /// Gets or Sets PublishDelay
         /// </summary>
         [DataMember(Name = "publishDelay", EmitDefaultValue = false)]
+        [JsonPropertyName("publishDelay")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string PublishDelay { get; set; }
 
         /// <summary>
@@ -206,7 +224,7 @@ namespace MangaDex.Model
         /// <returns>JSON string presentation of the object</returns>
         public virtual string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return System.Text.Json.JsonSerializer.Serialize(this, MangaDex.Client.SerializerOptions.Indented);
         }
 
         /// <summary>

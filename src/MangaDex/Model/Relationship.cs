@@ -18,9 +18,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 
@@ -36,7 +35,7 @@ namespace MangaDex.Model
         /// Related Manga type, only present if you are on a Manga entity and a Manga relationship
         /// </summary>
         /// <value>Related Manga type, only present if you are on a Manga entity and a Manga relationship</value>
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(MangaDex.Client.StringEnumMemberConverter))]
         public enum RelatedEnum
         {
             /// <summary>
@@ -142,6 +141,8 @@ namespace MangaDex.Model
         /// </summary>
         /// <value>Related Manga type, only present if you are on a Manga entity and a Manga relationship</value>
         [DataMember(Name = "related", EmitDefaultValue = false)]
+        [JsonPropertyName("related")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public RelatedEnum? Related { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="Relationship" /> class.
@@ -162,12 +163,16 @@ namespace MangaDex.Model
         /// Gets or Sets Id
         /// </summary>
         [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonPropertyName("id")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or Sets Type
         /// </summary>
         [DataMember(Name = "type", EmitDefaultValue = false)]
+        [JsonPropertyName("type")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string Type { get; set; }
 
         /// <summary>
@@ -175,6 +180,7 @@ namespace MangaDex.Model
         /// </summary>
         /// <value>If Reference Expansion is applied, contains objects attributes</value>
         [DataMember(Name = "attributes", EmitDefaultValue = true)]
+        [JsonPropertyName("attributes")]
         public Object Attributes { get; set; }
 
         /// <summary>
@@ -199,7 +205,7 @@ namespace MangaDex.Model
         /// <returns>JSON string presentation of the object</returns>
         public virtual string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return System.Text.Json.JsonSerializer.Serialize(this, MangaDex.Client.SerializerOptions.Indented);
         }
 
         /// <summary>

@@ -18,9 +18,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 
@@ -63,60 +62,80 @@ namespace MangaDex.Model
         /// Gets or Sets Var1
         /// </summary>
         [DataMember(Name = "1", EmitDefaultValue = false)]
+        [JsonPropertyName("1")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int Var1 { get; set; }
 
         /// <summary>
         /// Gets or Sets Var2
         /// </summary>
         [DataMember(Name = "2", EmitDefaultValue = false)]
+        [JsonPropertyName("2")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int Var2 { get; set; }
 
         /// <summary>
         /// Gets or Sets Var3
         /// </summary>
         [DataMember(Name = "3", EmitDefaultValue = false)]
+        [JsonPropertyName("3")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int Var3 { get; set; }
 
         /// <summary>
         /// Gets or Sets Var4
         /// </summary>
         [DataMember(Name = "4", EmitDefaultValue = false)]
+        [JsonPropertyName("4")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int Var4 { get; set; }
 
         /// <summary>
         /// Gets or Sets Var5
         /// </summary>
         [DataMember(Name = "5", EmitDefaultValue = false)]
+        [JsonPropertyName("5")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int Var5 { get; set; }
 
         /// <summary>
         /// Gets or Sets Var6
         /// </summary>
         [DataMember(Name = "6", EmitDefaultValue = false)]
+        [JsonPropertyName("6")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int Var6 { get; set; }
 
         /// <summary>
         /// Gets or Sets Var7
         /// </summary>
         [DataMember(Name = "7", EmitDefaultValue = false)]
+        [JsonPropertyName("7")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int Var7 { get; set; }
 
         /// <summary>
         /// Gets or Sets Var8
         /// </summary>
         [DataMember(Name = "8", EmitDefaultValue = false)]
+        [JsonPropertyName("8")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int Var8 { get; set; }
 
         /// <summary>
         /// Gets or Sets Var9
         /// </summary>
         [DataMember(Name = "9", EmitDefaultValue = false)]
+        [JsonPropertyName("9")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int Var9 { get; set; }
 
         /// <summary>
         /// Gets or Sets Var10
         /// </summary>
         [DataMember(Name = "10", EmitDefaultValue = false)]
+        [JsonPropertyName("10")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int Var10 { get; set; }
 
         /// <summary>
@@ -147,7 +166,7 @@ namespace MangaDex.Model
         /// <returns>JSON string presentation of the object</returns>
         public virtual string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return System.Text.Json.JsonSerializer.Serialize(this, MangaDex.Client.SerializerOptions.Indented);
         }
 
         /// <summary>

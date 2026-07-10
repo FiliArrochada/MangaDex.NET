@@ -18,9 +18,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 
@@ -35,7 +34,7 @@ namespace MangaDex.Model
         /// <summary>
         /// Defines CreatedAt
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(MangaDex.Client.StringEnumMemberConverter))]
         public enum CreatedAtEnum
         {
             /// <summary>
@@ -56,11 +55,13 @@ namespace MangaDex.Model
         /// Gets or Sets CreatedAt
         /// </summary>
         [DataMember(Name = "createdAt", EmitDefaultValue = false)]
+        [JsonPropertyName("createdAt")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public CreatedAtEnum? CreatedAt { get; set; }
         /// <summary>
         /// Defines UpdatedAt
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(MangaDex.Client.StringEnumMemberConverter))]
         public enum UpdatedAtEnum
         {
             /// <summary>
@@ -81,11 +82,13 @@ namespace MangaDex.Model
         /// Gets or Sets UpdatedAt
         /// </summary>
         [DataMember(Name = "updatedAt", EmitDefaultValue = false)]
+        [JsonPropertyName("updatedAt")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public UpdatedAtEnum? UpdatedAt { get; set; }
         /// <summary>
         /// Defines PublishAt
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(MangaDex.Client.StringEnumMemberConverter))]
         public enum PublishAtEnum
         {
             /// <summary>
@@ -106,11 +109,13 @@ namespace MangaDex.Model
         /// Gets or Sets PublishAt
         /// </summary>
         [DataMember(Name = "publishAt", EmitDefaultValue = false)]
+        [JsonPropertyName("publishAt")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public PublishAtEnum? PublishAt { get; set; }
         /// <summary>
         /// Defines ReadableAt
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(MangaDex.Client.StringEnumMemberConverter))]
         public enum ReadableAtEnum
         {
             /// <summary>
@@ -131,11 +136,13 @@ namespace MangaDex.Model
         /// Gets or Sets ReadableAt
         /// </summary>
         [DataMember(Name = "readableAt", EmitDefaultValue = false)]
+        [JsonPropertyName("readableAt")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public ReadableAtEnum? ReadableAt { get; set; }
         /// <summary>
         /// Defines Volume
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(MangaDex.Client.StringEnumMemberConverter))]
         public enum VolumeEnum
         {
             /// <summary>
@@ -156,11 +163,13 @@ namespace MangaDex.Model
         /// Gets or Sets Volume
         /// </summary>
         [DataMember(Name = "volume", EmitDefaultValue = false)]
+        [JsonPropertyName("volume")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public VolumeEnum? Volume { get; set; }
         /// <summary>
         /// Defines Chapter
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(MangaDex.Client.StringEnumMemberConverter))]
         public enum ChapterEnum
         {
             /// <summary>
@@ -181,6 +190,8 @@ namespace MangaDex.Model
         /// Gets or Sets Chapter
         /// </summary>
         [DataMember(Name = "chapter", EmitDefaultValue = false)]
+        [JsonPropertyName("chapter")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public ChapterEnum? Chapter { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="GetChapterOrderParameter" /> class.
@@ -225,7 +236,7 @@ namespace MangaDex.Model
         /// <returns>JSON string presentation of the object</returns>
         public virtual string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return System.Text.Json.JsonSerializer.Serialize(this, MangaDex.Client.SerializerOptions.Indented);
         }
 
         /// <summary>

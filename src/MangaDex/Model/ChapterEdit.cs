@@ -18,9 +18,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 
@@ -60,30 +59,37 @@ namespace MangaDex.Model
         /// Gets or Sets Title
         /// </summary>
         [DataMember(Name = "title", EmitDefaultValue = true)]
+        [JsonPropertyName("title")]
         public string Title { get; set; }
 
         /// <summary>
         /// Gets or Sets Volume
         /// </summary>
         [DataMember(Name = "volume", EmitDefaultValue = true)]
+        [JsonPropertyName("volume")]
         public string Volume { get; set; }
 
         /// <summary>
         /// Gets or Sets Chapter
         /// </summary>
         [DataMember(Name = "chapter", EmitDefaultValue = true)]
+        [JsonPropertyName("chapter")]
         public string Chapter { get; set; }
 
         /// <summary>
         /// Gets or Sets TranslatedLanguage
         /// </summary>
         [DataMember(Name = "translatedLanguage", EmitDefaultValue = false)]
+        [JsonPropertyName("translatedLanguage")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string TranslatedLanguage { get; set; }
 
         /// <summary>
         /// Gets or Sets Groups
         /// </summary>
         [DataMember(Name = "groups", EmitDefaultValue = false)]
+        [JsonPropertyName("groups")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public List<Guid> Groups { get; set; }
 
         /// <summary>
@@ -116,7 +122,7 @@ namespace MangaDex.Model
         /// <returns>JSON string presentation of the object</returns>
         public virtual string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return System.Text.Json.JsonSerializer.Serialize(this, MangaDex.Client.SerializerOptions.Indented);
         }
 
         /// <summary>

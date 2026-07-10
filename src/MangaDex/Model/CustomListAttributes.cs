@@ -18,9 +18,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 
@@ -35,7 +34,7 @@ namespace MangaDex.Model
         /// <summary>
         /// Defines Visibility
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(MangaDex.Client.StringEnumMemberConverter))]
         public enum VisibilityEnum
         {
             /// <summary>
@@ -56,6 +55,8 @@ namespace MangaDex.Model
         /// Gets or Sets Visibility
         /// </summary>
         [DataMember(Name = "visibility", EmitDefaultValue = false)]
+        [JsonPropertyName("visibility")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public VisibilityEnum? Visibility { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomListAttributes" /> class.
@@ -74,12 +75,16 @@ namespace MangaDex.Model
         /// Gets or Sets Name
         /// </summary>
         [DataMember(Name = "name", EmitDefaultValue = false)]
+        [JsonPropertyName("name")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string Name { get; set; }
 
         /// <summary>
         /// Gets or Sets VarVersion
         /// </summary>
         [DataMember(Name = "version", EmitDefaultValue = false)]
+        [JsonPropertyName("version")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int VarVersion { get; set; }
 
         /// <summary>
@@ -103,7 +108,7 @@ namespace MangaDex.Model
         /// <returns>JSON string presentation of the object</returns>
         public virtual string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return System.Text.Json.JsonSerializer.Serialize(this, MangaDex.Client.SerializerOptions.Indented);
         }
 
         /// <summary>

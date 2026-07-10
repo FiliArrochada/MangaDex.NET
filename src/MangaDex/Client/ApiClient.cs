@@ -23,8 +23,7 @@ using System.Text;
 using System.Threading;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using System.Text.Json;
 using RestSharp;
 using RestSharp.Serializers;
 using RestSharpMethod = RestSharp.Method;
@@ -38,25 +37,14 @@ namespace MangaDex.Client
     internal class CustomJsonCodec : IRestSerializer, ISerializer, IDeserializer
     {
         private readonly IReadableConfiguration _configuration;
-        private readonly JsonSerializerSettings _serializerSettings = new JsonSerializerSettings
-        {
-            // OpenAPI generated types generally hide default constructors.
-            ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
-            ContractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new CamelCaseNamingStrategy
-                {
-                    OverrideSpecifiedNames = false
-                }
-            }
-        };
+        private readonly JsonSerializerOptions _serializerSettings = MangaDex.Client.SerializerOptions.Default;
 
         public CustomJsonCodec(IReadableConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-        public CustomJsonCodec(JsonSerializerSettings serializerSettings, IReadableConfiguration configuration)
+        public CustomJsonCodec(JsonSerializerOptions serializerSettings, IReadableConfiguration configuration)
         {
             _serializerSettings = serializerSettings;
             _configuration = configuration;
@@ -76,7 +64,8 @@ namespace MangaDex.Client
             }
             else
             {
-                return JsonConvert.SerializeObject(obj, _serializerSettings);
+                // Serialize against the runtime type so derived model properties are included.
+                return obj == null ? "null" : JsonSerializer.Serialize(obj, obj.GetType(), _serializerSettings);
             }
         }
 
@@ -139,7 +128,7 @@ namespace MangaDex.Client
             // at this point, it must be a model (json)
             try
             {
-                return JsonConvert.DeserializeObject(response.Content, type, _serializerSettings);
+                return JsonSerializer.Deserialize(response.Content, type, _serializerSettings);
             }
             catch (Exception e)
             {
@@ -172,18 +161,7 @@ namespace MangaDex.Client
         /// Specifies the settings on a <see cref="JsonSerializer" /> object.
         /// These settings can be adjusted to accommodate custom serialization rules.
         /// </summary>
-        public JsonSerializerSettings SerializerSettings { get; set; } = new JsonSerializerSettings
-        {
-            // OpenAPI generated types generally hide default constructors.
-            ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
-            ContractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new CamelCaseNamingStrategy
-                {
-                    OverrideSpecifiedNames = false
-                }
-            }
-        };
+        public JsonSerializerOptions SerializerSettings { get; set; } = MangaDex.Client.SerializerOptions.Default;
 
         /// <summary>
         /// Allows for extending request processing for <see cref="ApiClient"/> generated code.
@@ -447,7 +425,7 @@ namespace MangaDex.Client
             {
                 ClientCertificates = configuration.ClientCertificates,
                 CookieContainer = cookies,
-                MaxTimeout = configuration.Timeout,
+                Timeout = configuration.Timeout > 0 ? TimeSpan.FromMilliseconds(configuration.Timeout) : (TimeSpan?)null,
                 Proxy = configuration.Proxy,
                 UserAgent = configuration.UserAgent,
                 UseDefaultCredentials = configuration.UseDefaultCredentials,
@@ -544,7 +522,7 @@ namespace MangaDex.Client
             var clientOptions = new RestClientOptions(baseUrl)
             {
                 ClientCertificates = configuration.ClientCertificates,
-                MaxTimeout = configuration.Timeout,
+                Timeout = configuration.Timeout > 0 ? TimeSpan.FromMilliseconds(configuration.Timeout) : (TimeSpan?)null,
                 Proxy = configuration.Proxy,
                 UserAgent = configuration.UserAgent,
                 UseDefaultCredentials = configuration.UseDefaultCredentials

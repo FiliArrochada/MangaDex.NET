@@ -18,9 +18,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 using System.Reflection;
@@ -126,7 +125,7 @@ namespace MangaDex.Model
         /// <returns>JSON string presentation of the object</returns>
         public override string ToJson()
         {
-            return JsonConvert.SerializeObject(this.ActualInstance, GetSearchMangaYearParameter.SerializerSettings);
+            return JsonSerializer.Serialize(this.ActualInstance, this.ActualInstance.GetType(), GetSearchMangaYearParameter.SerializerSettings);
         }
 
         /// <summary>
@@ -150,11 +149,11 @@ namespace MangaDex.Model
                 // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
                 if (typeof(int).GetProperty("AdditionalProperties") == null)
                 {
-                    newGetSearchMangaYearParameter = new GetSearchMangaYearParameter(JsonConvert.DeserializeObject<int>(jsonString, GetSearchMangaYearParameter.SerializerSettings));
+                    newGetSearchMangaYearParameter = new GetSearchMangaYearParameter(JsonSerializer.Deserialize<int>(jsonString, GetSearchMangaYearParameter.SerializerSettings));
                 }
                 else
                 {
-                    newGetSearchMangaYearParameter = new GetSearchMangaYearParameter(JsonConvert.DeserializeObject<int>(jsonString, GetSearchMangaYearParameter.AdditionalPropertiesSerializerSettings));
+                    newGetSearchMangaYearParameter = new GetSearchMangaYearParameter(JsonSerializer.Deserialize<int>(jsonString, GetSearchMangaYearParameter.AdditionalPropertiesSerializerSettings));
                 }
                 matchedTypes.Add("int");
                 match++;
@@ -170,11 +169,11 @@ namespace MangaDex.Model
                 // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
                 if (typeof(string).GetProperty("AdditionalProperties") == null)
                 {
-                    newGetSearchMangaYearParameter = new GetSearchMangaYearParameter(JsonConvert.DeserializeObject<string>(jsonString, GetSearchMangaYearParameter.SerializerSettings));
+                    newGetSearchMangaYearParameter = new GetSearchMangaYearParameter(JsonSerializer.Deserialize<string>(jsonString, GetSearchMangaYearParameter.SerializerSettings));
                 }
                 else
                 {
-                    newGetSearchMangaYearParameter = new GetSearchMangaYearParameter(JsonConvert.DeserializeObject<string>(jsonString, GetSearchMangaYearParameter.AdditionalPropertiesSerializerSettings));
+                    newGetSearchMangaYearParameter = new GetSearchMangaYearParameter(JsonSerializer.Deserialize<string>(jsonString, GetSearchMangaYearParameter.AdditionalPropertiesSerializerSettings));
                 }
                 matchedTypes.Add("string");
                 match++;
@@ -250,7 +249,7 @@ namespace MangaDex.Model
     /// <summary>
     /// Custom JSON converter for GetSearchMangaYearParameter
     /// </summary>
-    public class GetSearchMangaYearParameterJsonConverter : JsonConverter
+    public class GetSearchMangaYearParameterJsonConverter : JsonConverter<GetSearchMangaYearParameter>
     {
         /// <summary>
         /// To write the JSON string
@@ -258,9 +257,10 @@ namespace MangaDex.Model
         /// <param name="writer">JSON writer</param>
         /// <param name="value">Object to be converted into a JSON string</param>
         /// <param name="serializer">JSON Serializer</param>
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        
+        public override void Write(Utf8JsonWriter writer, GetSearchMangaYearParameter value, JsonSerializerOptions options)
         {
-            writer.WriteRawValue((string)(typeof(GetSearchMangaYearParameter).GetMethod("ToJson").Invoke(value, null)));
+            writer.WriteRawValue(value.ToJson());
         }
 
         /// <summary>
@@ -271,23 +271,17 @@ namespace MangaDex.Model
         /// <param name="existingValue">Existing value</param>
         /// <param name="serializer">JSON Serializer</param>
         /// <returns>The object converted from the JSON string</returns>
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        
+        public override GetSearchMangaYearParameter Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            if(reader.TokenType != JsonToken.Null)
+            if (reader.TokenType != JsonTokenType.Null)
             {
-                return GetSearchMangaYearParameter.FromJson(JObject.Load(reader).ToString(Formatting.None));
+                using (var doc = JsonDocument.ParseValue(ref reader))
+                {
+                    return GetSearchMangaYearParameter.FromJson(doc.RootElement.GetRawText());
+                }
             }
             return null;
-        }
-
-        /// <summary>
-        /// Check if the object can be converted
-        /// </summary>
-        /// <param name="objectType">Object type</param>
-        /// <returns>True if the object can be converted</returns>
-        public override bool CanConvert(Type objectType)
-        {
-            return false;
         }
     }
 

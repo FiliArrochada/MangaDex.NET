@@ -18,9 +18,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 
@@ -55,36 +54,45 @@ namespace MangaDex.Model
         /// Gets or Sets IsCommitted
         /// </summary>
         [DataMember(Name = "isCommitted", EmitDefaultValue = true)]
+        [JsonPropertyName("isCommitted")]
         public bool IsCommitted { get; set; }
 
         /// <summary>
         /// Gets or Sets IsProcessed
         /// </summary>
         [DataMember(Name = "isProcessed", EmitDefaultValue = true)]
+        [JsonPropertyName("isProcessed")]
         public bool IsProcessed { get; set; }
 
         /// <summary>
         /// Gets or Sets IsDeleted
         /// </summary>
         [DataMember(Name = "isDeleted", EmitDefaultValue = true)]
+        [JsonPropertyName("isDeleted")]
         public bool IsDeleted { get; set; }
 
         /// <summary>
         /// Gets or Sets VarVersion
         /// </summary>
         [DataMember(Name = "version", EmitDefaultValue = false)]
+        [JsonPropertyName("version")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int VarVersion { get; set; }
 
         /// <summary>
         /// Gets or Sets CreatedAt
         /// </summary>
         [DataMember(Name = "createdAt", EmitDefaultValue = false)]
+        [JsonPropertyName("createdAt")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string CreatedAt { get; set; }
 
         /// <summary>
         /// Gets or Sets UpdatedAt
         /// </summary>
         [DataMember(Name = "updatedAt", EmitDefaultValue = false)]
+        [JsonPropertyName("updatedAt")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string UpdatedAt { get; set; }
 
         /// <summary>
@@ -111,7 +119,7 @@ namespace MangaDex.Model
         /// <returns>JSON string presentation of the object</returns>
         public virtual string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return System.Text.Json.JsonSerializer.Serialize(this, MangaDex.Client.SerializerOptions.Indented);
         }
 
         /// <summary>

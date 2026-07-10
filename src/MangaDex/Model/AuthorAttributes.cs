@@ -18,9 +18,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 
@@ -81,114 +80,138 @@ namespace MangaDex.Model
         /// Gets or Sets Name
         /// </summary>
         [DataMember(Name = "name", EmitDefaultValue = false)]
+        [JsonPropertyName("name")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string Name { get; set; }
 
         /// <summary>
         /// Gets or Sets ImageUrl
         /// </summary>
         [DataMember(Name = "imageUrl", EmitDefaultValue = true)]
+        [JsonPropertyName("imageUrl")]
         public string ImageUrl { get; set; }
 
         /// <summary>
         /// Gets or Sets Biography
         /// </summary>
         [DataMember(Name = "biography", EmitDefaultValue = false)]
+        [JsonPropertyName("biography")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Dictionary<string, string> Biography { get; set; }
 
         /// <summary>
         /// Gets or Sets Twitter
         /// </summary>
         [DataMember(Name = "twitter", EmitDefaultValue = true)]
+        [JsonPropertyName("twitter")]
         public string Twitter { get; set; }
 
         /// <summary>
         /// Gets or Sets Pixiv
         /// </summary>
         [DataMember(Name = "pixiv", EmitDefaultValue = true)]
+        [JsonPropertyName("pixiv")]
         public string Pixiv { get; set; }
 
         /// <summary>
         /// Gets or Sets MelonBook
         /// </summary>
         [DataMember(Name = "melonBook", EmitDefaultValue = true)]
+        [JsonPropertyName("melonBook")]
         public string MelonBook { get; set; }
 
         /// <summary>
         /// Gets or Sets FanBox
         /// </summary>
         [DataMember(Name = "fanBox", EmitDefaultValue = true)]
+        [JsonPropertyName("fanBox")]
         public string FanBox { get; set; }
 
         /// <summary>
         /// Gets or Sets Booth
         /// </summary>
         [DataMember(Name = "booth", EmitDefaultValue = true)]
+        [JsonPropertyName("booth")]
         public string Booth { get; set; }
 
         /// <summary>
         /// Gets or Sets NicoVideo
         /// </summary>
         [DataMember(Name = "nicoVideo", EmitDefaultValue = true)]
+        [JsonPropertyName("nicoVideo")]
         public string NicoVideo { get; set; }
 
         /// <summary>
         /// Gets or Sets Skeb
         /// </summary>
         [DataMember(Name = "skeb", EmitDefaultValue = true)]
+        [JsonPropertyName("skeb")]
         public string Skeb { get; set; }
 
         /// <summary>
         /// Gets or Sets Fantia
         /// </summary>
         [DataMember(Name = "fantia", EmitDefaultValue = true)]
+        [JsonPropertyName("fantia")]
         public string Fantia { get; set; }
 
         /// <summary>
         /// Gets or Sets Tumblr
         /// </summary>
         [DataMember(Name = "tumblr", EmitDefaultValue = true)]
+        [JsonPropertyName("tumblr")]
         public string Tumblr { get; set; }
 
         /// <summary>
         /// Gets or Sets Youtube
         /// </summary>
         [DataMember(Name = "youtube", EmitDefaultValue = true)]
+        [JsonPropertyName("youtube")]
         public string Youtube { get; set; }
 
         /// <summary>
         /// Gets or Sets Weibo
         /// </summary>
         [DataMember(Name = "weibo", EmitDefaultValue = true)]
+        [JsonPropertyName("weibo")]
         public string Weibo { get; set; }
 
         /// <summary>
         /// Gets or Sets Naver
         /// </summary>
         [DataMember(Name = "naver", EmitDefaultValue = true)]
+        [JsonPropertyName("naver")]
         public string Naver { get; set; }
 
         /// <summary>
         /// Gets or Sets Website
         /// </summary>
         [DataMember(Name = "website", EmitDefaultValue = true)]
+        [JsonPropertyName("website")]
         public string Website { get; set; }
 
         /// <summary>
         /// Gets or Sets VarVersion
         /// </summary>
         [DataMember(Name = "version", EmitDefaultValue = false)]
+        [JsonPropertyName("version")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int VarVersion { get; set; }
 
         /// <summary>
         /// Gets or Sets CreatedAt
         /// </summary>
         [DataMember(Name = "createdAt", EmitDefaultValue = false)]
+        [JsonPropertyName("createdAt")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string CreatedAt { get; set; }
 
         /// <summary>
         /// Gets or Sets UpdatedAt
         /// </summary>
         [DataMember(Name = "updatedAt", EmitDefaultValue = false)]
+        [JsonPropertyName("updatedAt")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string UpdatedAt { get; set; }
 
         /// <summary>
@@ -228,7 +251,7 @@ namespace MangaDex.Model
         /// <returns>JSON string presentation of the object</returns>
         public virtual string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return System.Text.Json.JsonSerializer.Serialize(this, MangaDex.Client.SerializerOptions.Indented);
         }
 
         /// <summary>

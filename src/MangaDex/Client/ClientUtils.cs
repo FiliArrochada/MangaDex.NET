@@ -122,7 +122,7 @@ namespace MangaDex.Client
         /// <returns>Serialized string.</returns>
         public static string Serialize(object obj)
         {
-            return obj != null ? Newtonsoft.Json.JsonConvert.SerializeObject(obj) : null;
+            return obj != null ? System.Text.Json.JsonSerializer.Serialize(obj, SerializerOptions.Default) : null;
         }
 
         /// <summary>

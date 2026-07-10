@@ -18,9 +18,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 
@@ -35,7 +34,7 @@ namespace MangaDex.Model
         /// <summary>
         /// Defines Source
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(MangaDex.Client.StringEnumMemberConverter))]
         public enum SourceEnum
         {
             /// <summary>
@@ -56,6 +55,8 @@ namespace MangaDex.Model
         /// Gets or Sets Source
         /// </summary>
         [DataMember(Name = "source", EmitDefaultValue = false)]
+        [JsonPropertyName("source")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public SourceEnum? Source { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="UploadSessionFileAttributes" /> class.
@@ -80,30 +81,40 @@ namespace MangaDex.Model
         /// Gets or Sets OriginalFileName
         /// </summary>
         [DataMember(Name = "originalFileName", EmitDefaultValue = false)]
+        [JsonPropertyName("originalFileName")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string OriginalFileName { get; set; }
 
         /// <summary>
         /// Gets or Sets FileHash
         /// </summary>
         [DataMember(Name = "fileHash", EmitDefaultValue = false)]
+        [JsonPropertyName("fileHash")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string FileHash { get; set; }
 
         /// <summary>
         /// Gets or Sets FileSize
         /// </summary>
         [DataMember(Name = "fileSize", EmitDefaultValue = false)]
+        [JsonPropertyName("fileSize")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public decimal FileSize { get; set; }
 
         /// <summary>
         /// Gets or Sets MimeType
         /// </summary>
         [DataMember(Name = "mimeType", EmitDefaultValue = false)]
+        [JsonPropertyName("mimeType")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string MimeType { get; set; }
 
         /// <summary>
         /// Gets or Sets VarVersion
         /// </summary>
         [DataMember(Name = "version", EmitDefaultValue = false)]
+        [JsonPropertyName("version")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int VarVersion { get; set; }
 
         /// <summary>
@@ -130,7 +141,7 @@ namespace MangaDex.Model
         /// <returns>JSON string presentation of the object</returns>
         public virtual string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return System.Text.Json.JsonSerializer.Serialize(this, MangaDex.Client.SerializerOptions.Indented);
         }
 
         /// <summary>

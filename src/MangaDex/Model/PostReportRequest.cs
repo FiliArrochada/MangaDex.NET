@@ -18,9 +18,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 
@@ -35,7 +34,7 @@ namespace MangaDex.Model
         /// <summary>
         /// Defines Category
         /// </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(MangaDex.Client.StringEnumMemberConverter))]
         public enum CategoryEnum
         {
             /// <summary>
@@ -74,6 +73,8 @@ namespace MangaDex.Model
         /// Gets or Sets Category
         /// </summary>
         [DataMember(Name = "category", EmitDefaultValue = false)]
+        [JsonPropertyName("category")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public CategoryEnum? Category { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="PostReportRequest" /> class.
@@ -94,18 +95,24 @@ namespace MangaDex.Model
         /// Gets or Sets Reason
         /// </summary>
         [DataMember(Name = "reason", EmitDefaultValue = false)]
+        [JsonPropertyName("reason")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Guid Reason { get; set; }
 
         /// <summary>
         /// Gets or Sets ObjectId
         /// </summary>
         [DataMember(Name = "objectId", EmitDefaultValue = false)]
+        [JsonPropertyName("objectId")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Guid ObjectId { get; set; }
 
         /// <summary>
         /// Gets or Sets Details
         /// </summary>
         [DataMember(Name = "details", EmitDefaultValue = false)]
+        [JsonPropertyName("details")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string Details { get; set; }
 
         /// <summary>
@@ -130,7 +137,7 @@ namespace MangaDex.Model
         /// <returns>JSON string presentation of the object</returns>
         public virtual string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return System.Text.Json.JsonSerializer.Serialize(this, MangaDex.Client.SerializerOptions.Indented);
         }
 
         /// <summary>
