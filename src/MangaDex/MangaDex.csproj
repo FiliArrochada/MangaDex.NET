@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo><!-- emits AssemblyVersion/FileVersion from <Version> (fixes Sonar S3904); the old project-system#3934 bug no longer applies on modern SDKs -->
@@ -18,8 +18,8 @@
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\MangaDex.xml</DocumentationFile>
     <!-- CS1591: undocumented members (generated Refit interfaces); CS8073: value-type != null in generated Equals -->
     <NoWarn>$(NoWarn);CS1591;CS8073</NoWarn>
-    <PackageProjectUrl>https://github.com/MangaDex.NET</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/MangaDex.NET.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/filipe-silva/MangaDex.NET</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/filipe-silva/MangaDex.NET.gitt</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>First Refit-native release: typed Refit interfaces over the MangaDex API (5.13.1) with System.Text.Json serialization.</PackageReleaseNotes>
