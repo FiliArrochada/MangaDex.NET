@@ -49,6 +49,7 @@ namespace MangaDex.Model
         /// Gets or Sets Profile
         /// </summary>
         [DataMember(Name = "profile", IsRequired = true, EmitDefaultValue = true)]
+        [JsonPropertyName("profile")]
         public ProfileEnum Profile { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClientCreate" /> class.
@@ -79,6 +80,7 @@ namespace MangaDex.Model
         /// Gets or Sets Name
         /// </summary>
         [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = true)]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
 
         /// <summary>

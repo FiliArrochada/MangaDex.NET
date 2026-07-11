@@ -50,10 +50,11 @@ namespace MangaDex.Model
         /// <param name="weibo">weibo.</param>
         /// <param name="naver">naver.</param>
         /// <param name="website">website.</param>
+        /// <param name="namicomi">namicomi.</param>
         /// <param name="varVersion">varVersion.</param>
         /// <param name="createdAt">createdAt.</param>
         /// <param name="updatedAt">updatedAt.</param>
-        public AuthorAttributes(string name = default(string), string imageUrl = default(string), Dictionary<string, string> biography = default(Dictionary<string, string>), string twitter = default(string), string pixiv = default(string), string melonBook = default(string), string fanBox = default(string), string booth = default(string), string nicoVideo = default(string), string skeb = default(string), string fantia = default(string), string tumblr = default(string), string youtube = default(string), string weibo = default(string), string naver = default(string), string website = default(string), int varVersion = default(int), string createdAt = default(string), string updatedAt = default(string))
+        public AuthorAttributes(string name = default(string), string imageUrl = default(string), Dictionary<string, string> biography = default(Dictionary<string, string>), string twitter = default(string), string pixiv = default(string), string melonBook = default(string), string fanBox = default(string), string booth = default(string), string nicoVideo = default(string), string skeb = default(string), string fantia = default(string), string tumblr = default(string), string youtube = default(string), string weibo = default(string), string naver = default(string), string website = default(string), string namicomi = default(string), int varVersion = default(int), string createdAt = default(string), string updatedAt = default(string))
         {
             this.Name = name;
             this.ImageUrl = imageUrl;
@@ -71,6 +72,7 @@ namespace MangaDex.Model
             this.Weibo = weibo;
             this.Naver = naver;
             this.Website = website;
+            this.Namicomi = namicomi;
             this.VarVersion = varVersion;
             this.CreatedAt = createdAt;
             this.UpdatedAt = updatedAt;
@@ -191,6 +193,14 @@ namespace MangaDex.Model
         public string Website { get; set; }
 
         /// <summary>
+        /// Gets or Sets Namicomi
+        /// </summary>
+        [DataMember(Name = "namicomi", EmitDefaultValue = false)]
+        [JsonPropertyName("namicomi")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public string Namicomi { get; set; }
+
+        /// <summary>
         /// Gets or Sets VarVersion
         /// </summary>
         [DataMember(Name = "version", EmitDefaultValue = false)]
@@ -238,6 +248,7 @@ namespace MangaDex.Model
             sb.Append("  Weibo: ").Append(Weibo).Append("\n");
             sb.Append("  Naver: ").Append(Naver).Append("\n");
             sb.Append("  Website: ").Append(Website).Append("\n");
+            sb.Append("  Namicomi: ").Append(Namicomi).Append("\n");
             sb.Append("  VarVersion: ").Append(VarVersion).Append("\n");
             sb.Append("  CreatedAt: ").Append(CreatedAt).Append("\n");
             sb.Append("  UpdatedAt: ").Append(UpdatedAt).Append("\n");
@@ -356,7 +367,12 @@ namespace MangaDex.Model
                     this.Website == input.Website ||
                     (this.Website != null &&
                     this.Website.Equals(input.Website))
-                ) && 
+                ) &&
+                (
+                    this.Namicomi == input.Namicomi ||
+                    (this.Namicomi != null &&
+                    this.Namicomi.Equals(input.Namicomi))
+                ) &&
                 (
                     this.VarVersion == input.VarVersion ||
                     this.VarVersion.Equals(input.VarVersion)
@@ -445,6 +461,10 @@ namespace MangaDex.Model
                 if (this.Website != null)
                 {
                     hashCode = (hashCode * 59) + this.Website.GetHashCode();
+                }
+                if (this.Namicomi != null)
+                {
+                    hashCode = (hashCode * 59) + this.Namicomi.GetHashCode();
                 }
                 hashCode = (hashCode * 59) + this.VarVersion.GetHashCode();
                 if (this.CreatedAt != null)

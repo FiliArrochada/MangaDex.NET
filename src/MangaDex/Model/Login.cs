@@ -74,6 +74,7 @@ namespace MangaDex.Model
         /// Gets or Sets Password
         /// </summary>
         [DataMember(Name = "password", IsRequired = true, EmitDefaultValue = true)]
+        [JsonPropertyName("password")]
         public string Password { get; set; }
 
         /// <summary>

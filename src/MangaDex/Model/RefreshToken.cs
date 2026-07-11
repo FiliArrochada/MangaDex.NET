@@ -54,6 +54,7 @@ namespace MangaDex.Model
         /// Gets or Sets Token
         /// </summary>
         [DataMember(Name = "token", IsRequired = true, EmitDefaultValue = true)]
+        [JsonPropertyName("token")]
         public string Token { get; set; }
 
         /// <summary>

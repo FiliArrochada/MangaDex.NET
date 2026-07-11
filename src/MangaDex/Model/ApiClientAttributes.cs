@@ -37,16 +37,20 @@ namespace MangaDex.Model
         /// <param name="name">name.</param>
         /// <param name="description">description.</param>
         /// <param name="profile">profile.</param>
-        /// <param name="clientId">clientId.</param>
+        /// <param name="externalClientId">externalClientId.</param>
+        /// <param name="isActive">isActive.</param>
+        /// <param name="state">state.</param>
         /// <param name="varVersion">varVersion.</param>
         /// <param name="createdAt">createdAt.</param>
         /// <param name="updatedAt">updatedAt.</param>
-        public ApiClientAttributes(string name = default(string), string description = default(string), string profile = default(string), string clientId = default(string), int varVersion = default(int), string createdAt = default(string), string updatedAt = default(string))
+        public ApiClientAttributes(string name = default(string), string description = default(string), string profile = default(string), string externalClientId = default(string), bool isActive = default(bool), StateEnum? state = default(StateEnum?), int varVersion = default(int), string createdAt = default(string), string updatedAt = default(string))
         {
             this.Name = name;
             this.Description = description;
             this.Profile = profile;
-            this.ClientId = clientId;
+            this.ExternalClientId = externalClientId;
+            this.IsActive = isActive;
+            this.State = state;
             this.VarVersion = varVersion;
             this.CreatedAt = createdAt;
             this.UpdatedAt = updatedAt;
@@ -76,11 +80,58 @@ namespace MangaDex.Model
         public string Profile { get; set; }
 
         /// <summary>
-        /// Gets or Sets ClientId
+        /// Gets or Sets ExternalClientId
         /// </summary>
-        [DataMember(Name = "clientId", EmitDefaultValue = true)]
-        [JsonPropertyName("clientId")]
-        public string ClientId { get; set; }
+        [DataMember(Name = "externalClientId", EmitDefaultValue = false)]
+        [JsonPropertyName("externalClientId")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public string ExternalClientId { get; set; }
+
+        /// <summary>
+        /// Gets or Sets IsActive
+        /// </summary>
+        [DataMember(Name = "isActive", EmitDefaultValue = true)]
+        [JsonPropertyName("isActive")]
+        public bool IsActive { get; set; }
+
+        /// <summary>
+        /// Defines State
+        /// </summary>
+        [JsonConverter(typeof(MangaDex.Client.StringEnumMemberConverter))]
+        public enum StateEnum
+        {
+            /// <summary>
+            /// Enum Requested for value: requested
+            /// </summary>
+            [EnumMember(Value = "requested")]
+            Requested = 1,
+
+            /// <summary>
+            /// Enum Approved for value: approved
+            /// </summary>
+            [EnumMember(Value = "approved")]
+            Approved = 2,
+
+            /// <summary>
+            /// Enum Rejected for value: rejected
+            /// </summary>
+            [EnumMember(Value = "rejected")]
+            Rejected = 3,
+
+            /// <summary>
+            /// Enum Autoapproved for value: autoapproved
+            /// </summary>
+            [EnumMember(Value = "autoapproved")]
+            Autoapproved = 4
+        }
+
+        /// <summary>
+        /// Gets or Sets State
+        /// </summary>
+        [DataMember(Name = "state", EmitDefaultValue = false)]
+        [JsonPropertyName("state")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public StateEnum? State { get; set; }
 
         /// <summary>
         /// Gets or Sets VarVersion
@@ -117,7 +168,9 @@ namespace MangaDex.Model
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  Description: ").Append(Description).Append("\n");
             sb.Append("  Profile: ").Append(Profile).Append("\n");
-            sb.Append("  ClientId: ").Append(ClientId).Append("\n");
+            sb.Append("  ExternalClientId: ").Append(ExternalClientId).Append("\n");
+            sb.Append("  IsActive: ").Append(IsActive).Append("\n");
+            sb.Append("  State: ").Append(State).Append("\n");
             sb.Append("  VarVersion: ").Append(VarVersion).Append("\n");
             sb.Append("  CreatedAt: ").Append(CreatedAt).Append("\n");
             sb.Append("  UpdatedAt: ").Append(UpdatedAt).Append("\n");
@@ -170,12 +223,20 @@ namespace MangaDex.Model
                     this.Profile == input.Profile ||
                     (this.Profile != null &&
                     this.Profile.Equals(input.Profile))
-                ) && 
+                ) &&
                 (
-                    this.ClientId == input.ClientId ||
-                    (this.ClientId != null &&
-                    this.ClientId.Equals(input.ClientId))
-                ) && 
+                    this.ExternalClientId == input.ExternalClientId ||
+                    (this.ExternalClientId != null &&
+                    this.ExternalClientId.Equals(input.ExternalClientId))
+                ) &&
+                (
+                    this.IsActive == input.IsActive ||
+                    this.IsActive.Equals(input.IsActive)
+                ) &&
+                (
+                    this.State == input.State ||
+                    this.State.Equals(input.State)
+                ) &&
                 (
                     this.VarVersion == input.VarVersion ||
                     this.VarVersion.Equals(input.VarVersion)
@@ -213,10 +274,12 @@ namespace MangaDex.Model
                 {
                     hashCode = (hashCode * 59) + this.Profile.GetHashCode();
                 }
-                if (this.ClientId != null)
+                if (this.ExternalClientId != null)
                 {
-                    hashCode = (hashCode * 59) + this.ClientId.GetHashCode();
+                    hashCode = (hashCode * 59) + this.ExternalClientId.GetHashCode();
                 }
+                hashCode = (hashCode * 59) + this.IsActive.GetHashCode();
+                hashCode = (hashCode * 59) + this.State.GetHashCode();
                 hashCode = (hashCode * 59) + this.VarVersion.GetHashCode();
                 if (this.CreatedAt != null)
                 {

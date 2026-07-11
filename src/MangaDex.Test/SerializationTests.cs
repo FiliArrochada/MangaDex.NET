@@ -200,6 +200,93 @@ namespace MangaDex.Test
             Assert.Equal("manga", cover.Relationships[0].Type);
         }
 
+        // ---------- 5.13.1 reconciliation ----------
+
+        [Fact]
+        public void RequiredBody_Serializes_With_CamelCase_Names()
+        {
+            // Regression: required ([DataMember IsRequired=true]) props must carry [JsonPropertyName].
+            var manga = Guid.NewGuid();
+            var groups = new List<Guid> { Guid.NewGuid() };
+            var body = new BeginUploadSession(groups: groups, manga: manga);
+            var json = JsonSerializer.Serialize(body, Options);
+            Assert.Contains("\"manga\":", json);
+            Assert.Contains("\"groups\":", json);
+            Assert.DoesNotContain("\"Manga\":", json); // not PascalCase
+            Assert.DoesNotContain("\"Groups\":", json);
+
+            var back = JsonSerializer.Deserialize<BeginUploadSession>(json, Options);
+            Assert.Equal(manga, back.Manga);
+            Assert.Equal(groups, back.Groups);
+        }
+
+        [Fact]
+        public void MangaAttributes_OfficialLinks_RoundTrips()
+        {
+            var attrs = new MangaAttributes(officialLinks: new Dictionary<string, string> { ["mal"] = "https://myanimelist.net/manga/1" });
+            var json = JsonSerializer.Serialize(attrs, Options);
+            Assert.Contains("\"officialLinks\":", json);
+            var back = JsonSerializer.Deserialize<MangaAttributes>(json, Options);
+            Assert.Equal("https://myanimelist.net/manga/1", back.OfficialLinks["mal"]);
+        }
+
+        [Fact]
+        public void New_MangaRecommendation_Model_RoundTrips()
+        {
+            var rec = new MangaRecommendation(id: Guid.NewGuid(), type: MangaRecommendation.TypeEnum.MangaRecommendation);
+            var json = JsonSerializer.Serialize(rec, Options);
+            Assert.Contains("\"type\":\"manga_recommendation\"", json);
+
+            var list = new MangaRecommendationList(data: new List<MangaRecommendation> { rec }, total: 1);
+            var listJson = JsonSerializer.Serialize(list, Options);
+            var back = JsonSerializer.Deserialize<MangaRecommendationList>(listJson, Options);
+            Assert.Single(back.Data);
+            Assert.Equal(MangaRecommendation.TypeEnum.MangaRecommendation, back.Data[0].Type);
+        }
+
+        [Fact]
+        public void ApiClientAttributes_State_Enum_RoundTrips()
+        {
+            var attrs = new ApiClientAttributes(externalClientId: "ext-1", isActive: true, state: ApiClientAttributes.StateEnum.Autoapproved);
+            var json = JsonSerializer.Serialize(attrs, Options);
+            Assert.Contains("\"state\":\"autoapproved\"", json);
+            Assert.Contains("\"externalClientId\":\"ext-1\"", json);
+            Assert.Contains("\"isActive\":true", json);
+            Assert.DoesNotContain("clientId", json); // removed upstream (only externalClientId now)
+
+            var back = JsonSerializer.Deserialize<ApiClientAttributes>(json, Options);
+            Assert.Equal(ApiClientAttributes.StateEnum.Autoapproved, back.State);
+        }
+
+        // ---------- New 5.13.1 endpoints' models ----------
+
+        [Fact]
+        public void UploadCheckApprovalRequest_Serializes()
+        {
+            var manga = Guid.NewGuid();
+            var req = new UploadCheckApprovalRequiredRequest(manga: manga, locale: "en");
+            var json = JsonSerializer.Serialize(req, Options);
+            Assert.Contains($"\"manga\":\"{manga}\"", json);
+            Assert.Contains("\"locale\":\"en\"", json);
+        }
+
+        [Fact]
+        public void UploadCheckApproval200Response_Deserializes()
+        {
+            var json = "{\"result\":\"ok\",\"requiresApproval\":true}";
+            var resp = JsonSerializer.Deserialize<UploadCheckApprovalRequired200Response>(json, Options);
+            Assert.Equal("ok", resp.Result);
+            Assert.True(resp.RequiresApproval);
+        }
+
+        [Fact]
+        public void RecommendationOrderParameter_Serializes_Score()
+        {
+            var order = new GetMangaIdRecommendationOrderParameter(score: GetMangaIdRecommendationOrderParameter.ScoreEnum.Desc);
+            var json = JsonSerializer.Serialize(order, Options);
+            Assert.Contains("\"score\":\"desc\"", json);
+        }
+
         // ---------- ClientUtils.Serialize helper ----------
 
         [Fact]

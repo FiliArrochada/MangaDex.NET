@@ -49,6 +49,7 @@ namespace MangaDex.Model
         /// Gets or Sets VarVersion
         /// </summary>
         [DataMember(Name = "version", IsRequired = true, EmitDefaultValue = true)]
+        [JsonPropertyName("version")]
         public int VarVersion { get; set; }
 
         /// <summary>

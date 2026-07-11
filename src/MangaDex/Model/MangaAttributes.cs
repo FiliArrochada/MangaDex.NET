@@ -194,6 +194,7 @@ namespace MangaDex.Model
         /// <param name="description">description.</param>
         /// <param name="isLocked">isLocked.</param>
         /// <param name="links">links.</param>
+        /// <param name="officialLinks">officialLinks.</param>
         /// <param name="originalLanguage">originalLanguage.</param>
         /// <param name="lastVolume">lastVolume.</param>
         /// <param name="lastChapter">lastChapter.</param>
@@ -209,13 +210,14 @@ namespace MangaDex.Model
         /// <param name="varVersion">varVersion.</param>
         /// <param name="createdAt">createdAt.</param>
         /// <param name="updatedAt">updatedAt.</param>
-        public MangaAttributes(Dictionary<string, string> title = default(Dictionary<string, string>), List<Dictionary<string, string>> altTitles = default(List<Dictionary<string, string>>), Dictionary<string, string> description = default(Dictionary<string, string>), bool isLocked = default(bool), Dictionary<string, string> links = default(Dictionary<string, string>), string originalLanguage = default(string), string lastVolume = default(string), string lastChapter = default(string), PublicationDemographicEnum? publicationDemographic = default(PublicationDemographicEnum?), StatusEnum? status = default(StatusEnum?), int? year = default(int?), ContentRatingEnum? contentRating = default(ContentRatingEnum?), bool chapterNumbersResetOnNewVolume = default(bool), List<string> availableTranslatedLanguages = default(List<string>), Guid latestUploadedChapter = default(Guid), List<Tag> tags = default(List<Tag>), StateEnum? state = default(StateEnum?), int varVersion = default(int), string createdAt = default(string), string updatedAt = default(string))
+        public MangaAttributes(Dictionary<string, string> title = default(Dictionary<string, string>), List<Dictionary<string, string>> altTitles = default(List<Dictionary<string, string>>), Dictionary<string, string> description = default(Dictionary<string, string>), bool isLocked = default(bool), Dictionary<string, string> links = default(Dictionary<string, string>), Dictionary<string, string> officialLinks = default(Dictionary<string, string>), string originalLanguage = default(string), string lastVolume = default(string), string lastChapter = default(string), PublicationDemographicEnum? publicationDemographic = default(PublicationDemographicEnum?), StatusEnum? status = default(StatusEnum?), int? year = default(int?), ContentRatingEnum? contentRating = default(ContentRatingEnum?), bool chapterNumbersResetOnNewVolume = default(bool), List<string> availableTranslatedLanguages = default(List<string>), Guid latestUploadedChapter = default(Guid), List<Tag> tags = default(List<Tag>), StateEnum? state = default(StateEnum?), int varVersion = default(int), string createdAt = default(string), string updatedAt = default(string))
         {
             this.Title = title;
             this.AltTitles = altTitles;
             this.Description = description;
             this.IsLocked = isLocked;
             this.Links = links;
+            this.OfficialLinks = officialLinks;
             this.OriginalLanguage = originalLanguage;
             this.LastVolume = lastVolume;
             this.LastChapter = lastChapter;
@@ -271,6 +273,14 @@ namespace MangaDex.Model
         [JsonPropertyName("links")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public Dictionary<string, string> Links { get; set; }
+
+        /// <summary>
+        /// Gets or Sets OfficialLinks
+        /// </summary>
+        [DataMember(Name = "officialLinks", EmitDefaultValue = false)]
+        [JsonPropertyName("officialLinks")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public Dictionary<string, string> OfficialLinks { get; set; }
 
         /// <summary>
         /// Gets or Sets OriginalLanguage
@@ -370,6 +380,7 @@ namespace MangaDex.Model
             sb.Append("  Description: ").Append(Description).Append("\n");
             sb.Append("  IsLocked: ").Append(IsLocked).Append("\n");
             sb.Append("  Links: ").Append(Links).Append("\n");
+            sb.Append("  OfficialLinks: ").Append(OfficialLinks).Append("\n");
             sb.Append("  OriginalLanguage: ").Append(OriginalLanguage).Append("\n");
             sb.Append("  LastVolume: ").Append(LastVolume).Append("\n");
             sb.Append("  LastChapter: ").Append(LastChapter).Append("\n");
@@ -447,6 +458,12 @@ namespace MangaDex.Model
                     this.Links != null &&
                     input.Links != null &&
                     this.Links.SequenceEqual(input.Links)
+                ) && 
+                (
+                    this.OfficialLinks == input.OfficialLinks ||
+                    this.OfficialLinks != null &&
+                    input.OfficialLinks != null &&
+                    this.OfficialLinks.SequenceEqual(input.OfficialLinks)
                 ) && 
                 (
                     this.OriginalLanguage == input.OriginalLanguage ||
@@ -545,6 +562,10 @@ namespace MangaDex.Model
                 if (this.Links != null)
                 {
                     hashCode = (hashCode * 59) + this.Links.GetHashCode();
+                }
+                if (this.OfficialLinks != null)
+                {
+                    hashCode = (hashCode * 59) + this.OfficialLinks.GetHashCode();
                 }
                 if (this.OriginalLanguage != null)
                 {

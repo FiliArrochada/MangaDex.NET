@@ -256,7 +256,7 @@ namespace MangaDex.Model
         /// </summary>
         /// <param name="writer">JSON writer</param>
         /// <param name="value">Object to be converted into a JSON string</param>
-        /// <param name="serializer">JSON Serializer</param>
+        /// <param name="options">Serializer options</param>
         
         public override void Write(Utf8JsonWriter writer, GetChapterUploaderParameter value, JsonSerializerOptions options)
         {
@@ -267,9 +267,8 @@ namespace MangaDex.Model
         /// To convert a JSON string into an object
         /// </summary>
         /// <param name="reader">JSON reader</param>
-        /// <param name="objectType">Object type</param>
-        /// <param name="existingValue">Existing value</param>
-        /// <param name="serializer">JSON Serializer</param>
+        /// <param name="typeToConvert">Type to convert (Read) — unused</param>
+        /// <param name="options">Serializer options</param>
         /// <returns>The object converted from the JSON string</returns>
         
         public override GetChapterUploaderParameter Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

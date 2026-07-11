@@ -56,12 +56,14 @@ namespace MangaDex.Model
         /// Gets or Sets Groups
         /// </summary>
         [DataMember(Name = "groups", IsRequired = true, EmitDefaultValue = true)]
+        [JsonPropertyName("groups")]
         public List<Guid> Groups { get; set; }
 
         /// <summary>
         /// Gets or Sets Manga
         /// </summary>
         [DataMember(Name = "manga", IsRequired = true, EmitDefaultValue = true)]
+        [JsonPropertyName("manga")]
         public Guid Manga { get; set; }
 
         /// <summary>

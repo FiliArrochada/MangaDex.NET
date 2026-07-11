@@ -117,31 +117,5 @@ namespace MangaDex.Test.Api
             //var response = instance.PostUserDeleteCode(code);
             //Assert.IsType<Response>(response);
         }
-
-        /// <summary>
-        /// Test PostUserEmail
-        /// </summary>
-        [Fact]
-        public void PostUserEmailTest()
-        {
-            // TODO uncomment below to test the method and replace null with proper value
-            //string contentType = null;
-            //PostUserEmailRequest postUserEmailRequest = null;
-            //var response = instance.PostUserEmail(contentType, postUserEmailRequest);
-            //Assert.IsType<Response>(response);
-        }
-
-        /// <summary>
-        /// Test PostUserPassword
-        /// </summary>
-        [Fact]
-        public void PostUserPasswordTest()
-        {
-            // TODO uncomment below to test the method and replace null with proper value
-            //string contentType = null;
-            //PostUserPasswordRequest postUserPasswordRequest = null;
-            //var response = instance.PostUserPassword(contentType, postUserPasswordRequest);
-            //Assert.IsType<Response>(response);
-        }
     }
 }

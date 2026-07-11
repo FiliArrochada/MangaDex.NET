@@ -139,6 +139,7 @@ namespace MangaDex.Model
         /// Gets or Sets Relation
         /// </summary>
         [DataMember(Name = "relation", IsRequired = true, EmitDefaultValue = true)]
+        [JsonPropertyName("relation")]
         public RelationEnum Relation { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="MangaRelationCreate" /> class.
@@ -160,6 +161,7 @@ namespace MangaDex.Model
         /// Gets or Sets TargetManga
         /// </summary>
         [DataMember(Name = "targetManga", IsRequired = true, EmitDefaultValue = true)]
+        [JsonPropertyName("targetManga")]
         public Guid TargetManga { get; set; }
 
         /// <summary>

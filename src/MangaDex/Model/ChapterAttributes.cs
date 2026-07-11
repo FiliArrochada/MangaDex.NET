@@ -41,12 +41,13 @@ namespace MangaDex.Model
         /// <param name="translatedLanguage">translatedLanguage.</param>
         /// <param name="uploader">uploader.</param>
         /// <param name="externalUrl">Denotes a chapter that links to an external source..</param>
+        /// <param name="isUnavailable">isUnavailable.</param>
         /// <param name="varVersion">varVersion.</param>
         /// <param name="createdAt">createdAt.</param>
         /// <param name="updatedAt">updatedAt.</param>
         /// <param name="publishAt">publishAt.</param>
         /// <param name="readableAt">readableAt.</param>
-        public ChapterAttributes(string title = default(string), string volume = default(string), string chapter = default(string), int pages = default(int), string translatedLanguage = default(string), Guid uploader = default(Guid), string externalUrl = default(string), int varVersion = default(int), string createdAt = default(string), string updatedAt = default(string), string publishAt = default(string), string readableAt = default(string))
+        public ChapterAttributes(string title = default(string), string volume = default(string), string chapter = default(string), int pages = default(int), string translatedLanguage = default(string), Guid uploader = default(Guid), string externalUrl = default(string), bool isUnavailable = default(bool), int varVersion = default(int), string createdAt = default(string), string updatedAt = default(string), string publishAt = default(string), string readableAt = default(string))
         {
             this.Title = title;
             this.Volume = volume;
@@ -55,6 +56,7 @@ namespace MangaDex.Model
             this.TranslatedLanguage = translatedLanguage;
             this.Uploader = uploader;
             this.ExternalUrl = externalUrl;
+            this.IsUnavailable = isUnavailable;
             this.VarVersion = varVersion;
             this.CreatedAt = createdAt;
             this.UpdatedAt = updatedAt;
@@ -117,6 +119,13 @@ namespace MangaDex.Model
         public string ExternalUrl { get; set; }
 
         /// <summary>
+        /// Gets or Sets IsUnavailable
+        /// </summary>
+        [DataMember(Name = "isUnavailable", EmitDefaultValue = true)]
+        [JsonPropertyName("isUnavailable")]
+        public bool IsUnavailable { get; set; }
+
+        /// <summary>
         /// Gets or Sets VarVersion
         /// </summary>
         [DataMember(Name = "version", EmitDefaultValue = false)]
@@ -171,6 +180,7 @@ namespace MangaDex.Model
             sb.Append("  TranslatedLanguage: ").Append(TranslatedLanguage).Append("\n");
             sb.Append("  Uploader: ").Append(Uploader).Append("\n");
             sb.Append("  ExternalUrl: ").Append(ExternalUrl).Append("\n");
+            sb.Append("  IsUnavailable: ").Append(IsUnavailable).Append("\n");
             sb.Append("  VarVersion: ").Append(VarVersion).Append("\n");
             sb.Append("  CreatedAt: ").Append(CreatedAt).Append("\n");
             sb.Append("  UpdatedAt: ").Append(UpdatedAt).Append("\n");
@@ -244,11 +254,15 @@ namespace MangaDex.Model
                     this.ExternalUrl == input.ExternalUrl ||
                     (this.ExternalUrl != null &&
                     this.ExternalUrl.Equals(input.ExternalUrl))
-                ) && 
+                ) &&
+                (
+                    this.IsUnavailable == input.IsUnavailable ||
+                    this.IsUnavailable.Equals(input.IsUnavailable)
+                ) &&
                 (
                     this.VarVersion == input.VarVersion ||
                     this.VarVersion.Equals(input.VarVersion)
-                ) && 
+                ) &&
                 (
                     this.CreatedAt == input.CreatedAt ||
                     (this.CreatedAt != null &&
@@ -305,6 +319,7 @@ namespace MangaDex.Model
                 {
                     hashCode = (hashCode * 59) + this.ExternalUrl.GetHashCode();
                 }
+                hashCode = (hashCode * 59) + this.IsUnavailable.GetHashCode();
                 hashCode = (hashCode * 59) + this.VarVersion.GetHashCode();
                 if (this.CreatedAt != null)
                 {

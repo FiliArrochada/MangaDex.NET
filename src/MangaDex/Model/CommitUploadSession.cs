@@ -36,10 +36,12 @@ namespace MangaDex.Model
         /// </summary>
         /// <param name="chapterDraft">chapterDraft.</param>
         /// <param name="pageOrder">ordered list of Upload Session File ids.</param>
-        public CommitUploadSession(ChapterDraft chapterDraft = default(ChapterDraft), List<Guid> pageOrder = default(List<Guid>))
+        /// <param name="termsAccepted">termsAccepted.</param>
+        public CommitUploadSession(ChapterDraft chapterDraft = default(ChapterDraft), List<Guid> pageOrder = default(List<Guid>), bool termsAccepted = default(bool))
         {
             this.ChapterDraft = chapterDraft;
             this.PageOrder = pageOrder;
+            this.TermsAccepted = termsAccepted;
         }
 
         /// <summary>
@@ -60,6 +62,13 @@ namespace MangaDex.Model
         public List<Guid> PageOrder { get; set; }
 
         /// <summary>
+        /// Gets or Sets TermsAccepted
+        /// </summary>
+        [DataMember(Name = "termsAccepted", EmitDefaultValue = true)]
+        [JsonPropertyName("termsAccepted")]
+        public bool TermsAccepted { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -69,6 +78,7 @@ namespace MangaDex.Model
             sb.Append("class CommitUploadSession {\n");
             sb.Append("  ChapterDraft: ").Append(ChapterDraft).Append("\n");
             sb.Append("  PageOrder: ").Append(PageOrder).Append("\n");
+            sb.Append("  TermsAccepted: ").Append(TermsAccepted).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -114,6 +124,10 @@ namespace MangaDex.Model
                     this.PageOrder != null &&
                     input.PageOrder != null &&
                     this.PageOrder.SequenceEqual(input.PageOrder)
+                ) &&
+                (
+                    this.TermsAccepted == input.TermsAccepted ||
+                    this.TermsAccepted.Equals(input.TermsAccepted)
                 );
         }
 
@@ -134,6 +148,7 @@ namespace MangaDex.Model
                 {
                     hashCode = (hashCode * 59) + this.PageOrder.GetHashCode();
                 }
+                hashCode = (hashCode * 59) + this.TermsAccepted.GetHashCode();
                 return hashCode;
             }
         }

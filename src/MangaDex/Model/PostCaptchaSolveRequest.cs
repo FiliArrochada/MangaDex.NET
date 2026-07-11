@@ -54,6 +54,7 @@ namespace MangaDex.Model
         /// Gets or Sets CaptchaChallenge
         /// </summary>
         [DataMember(Name = "captchaChallenge", IsRequired = true, EmitDefaultValue = true)]
+        [JsonPropertyName("captchaChallenge")]
         public string CaptchaChallenge { get; set; }
 
         /// <summary>

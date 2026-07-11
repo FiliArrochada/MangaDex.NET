@@ -337,6 +337,31 @@ namespace MangaDex.Api
         /// <returns>ApiResponse of MangaRelationList</returns>
         ApiResponse<MangaRelationList> GetMangaRelationWithHttpInfo(Guid mangaId, List<string> includes = default(List<string>), int operationIndex = 0);
         /// <summary>
+        /// Manga recommendation list
+        /// </summary>
+        /// <exception cref="MangaDex.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">Manga ID</param>
+        /// <param name="includes"> (optional)</param>
+        /// <param name="order"> (optional)</param>
+        /// <param name="contentRating"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>MangaRecommendationList</returns>
+        MangaRecommendationList GetMangaIdRecommendation(Guid id, List<string> includes = default(List<string>), GetMangaIdRecommendationOrderParameter order = default(GetMangaIdRecommendationOrderParameter), List<string> contentRating = default(List<string>), int operationIndex = 0);
+
+        /// <summary>
+        /// Manga recommendation list
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <exception cref="MangaDex.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">Manga ID</param>
+        /// <param name="includes"> (optional)</param>
+        /// <param name="order"> (optional)</param>
+        /// <param name="contentRating"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of MangaRecommendationList</returns>
+        ApiResponse<MangaRecommendationList> GetMangaIdRecommendationWithHttpInfo(Guid id, List<string> includes = default(List<string>), GetMangaIdRecommendationOrderParameter order = default(GetMangaIdRecommendationOrderParameter), List<string> contentRating = default(List<string>), int operationIndex = 0);
+        /// <summary>
         /// Get all Manga reading status for logged User
         /// </summary>
         /// <exception cref="MangaDex.Client.ApiException">Thrown when fails to make API call</exception>
@@ -938,6 +963,35 @@ namespace MangaDex.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (MangaRelationList)</returns>
         System.Threading.Tasks.Task<ApiResponse<MangaRelationList>> GetMangaRelationWithHttpInfoAsync(Guid mangaId, List<string> includes = default(List<string>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <summary>
+        /// Manga recommendation list
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <exception cref="MangaDex.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">Manga ID</param>
+        /// <param name="includes"> (optional)</param>
+        /// <param name="order"> (optional)</param>
+        /// <param name="contentRating"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MangaRecommendationList</returns>
+        System.Threading.Tasks.Task<MangaRecommendationList> GetMangaIdRecommendationAsync(Guid id, List<string> includes = default(List<string>), GetMangaIdRecommendationOrderParameter order = default(GetMangaIdRecommendationOrderParameter), List<string> contentRating = default(List<string>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <summary>
+        /// Manga recommendation list
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <exception cref="MangaDex.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">Manga ID</param>
+        /// <param name="includes"> (optional)</param>
+        /// <param name="order"> (optional)</param>
+        /// <param name="contentRating"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MangaRecommendationList)</returns>
+        System.Threading.Tasks.Task<ApiResponse<MangaRecommendationList>> GetMangaIdRecommendationWithHttpInfoAsync(Guid id, List<string> includes = default(List<string>), GetMangaIdRecommendationOrderParameter order = default(GetMangaIdRecommendationOrderParameter), List<string> contentRating = default(List<string>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// Get all Manga reading status for logged User
         /// </summary>
@@ -3411,6 +3465,180 @@ namespace MangaDex.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetMangaRelation", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Manga recommendation list
+        /// </summary>
+        /// <exception cref="MangaDex.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">Manga ID</param>
+        /// <param name="includes"> (optional)</param>
+        /// <param name="order"> (optional)</param>
+        /// <param name="contentRating"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>MangaRecommendationList</returns>
+        public MangaRecommendationList GetMangaIdRecommendation(Guid id, List<string> includes = default(List<string>), GetMangaIdRecommendationOrderParameter order = default(GetMangaIdRecommendationOrderParameter), List<string> contentRating = default(List<string>), int operationIndex = 0)
+        {
+            MangaDex.Client.ApiResponse<MangaRecommendationList> localVarResponse = GetMangaIdRecommendationWithHttpInfo(id, includes, order, contentRating);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Manga recommendation list
+        /// </summary>
+        /// <exception cref="MangaDex.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">Manga ID</param>
+        /// <param name="includes"> (optional)</param>
+        /// <param name="order"> (optional)</param>
+        /// <param name="contentRating"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <returns>ApiResponse of MangaRecommendationList</returns>
+        public MangaDex.Client.ApiResponse<MangaRecommendationList> GetMangaIdRecommendationWithHttpInfo(Guid id, List<string> includes = default(List<string>), GetMangaIdRecommendationOrderParameter order = default(GetMangaIdRecommendationOrderParameter), List<string> contentRating = default(List<string>), int operationIndex = 0)
+        {
+            MangaDex.Client.RequestOptions localVarRequestOptions = new MangaDex.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = MangaDex.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            var localVarAccept = MangaDex.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("id", MangaDex.Client.ClientUtils.ParameterToString(id)); // path parameter
+            if (includes != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(MangaDex.Client.ClientUtils.ParameterToMultiMap("multi", "includes[]", includes));
+            }
+            if (order != null)
+            {
+                if (order.Score != null)
+                {
+                    localVarRequestOptions.QueryParameters.Add(MangaDex.Client.ClientUtils.ParameterToMultiMap("", "order[score]", order.Score));
+                }
+            }
+            if (contentRating != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(MangaDex.Client.ClientUtils.ParameterToMultiMap("multi", "contentRating[]", contentRating));
+            }
+
+            localVarRequestOptions.Operation = "MangaApi.GetMangaIdRecommendation";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Get<MangaRecommendationList>("/manga/{id}/recommendation", localVarRequestOptions, this.Configuration);
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMangaIdRecommendation", localVarResponse);
+                if (_exception != null)
+                {
+                    throw _exception;
+                }
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Manga recommendation list
+        /// </summary>
+        /// <exception cref="MangaDex.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">Manga ID</param>
+        /// <param name="includes"> (optional)</param>
+        /// <param name="order"> (optional)</param>
+        /// <param name="contentRating"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of MangaRecommendationList</returns>
+        public async System.Threading.Tasks.Task<MangaRecommendationList> GetMangaIdRecommendationAsync(Guid id, List<string> includes = default(List<string>), GetMangaIdRecommendationOrderParameter order = default(GetMangaIdRecommendationOrderParameter), List<string> contentRating = default(List<string>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            MangaDex.Client.ApiResponse<MangaRecommendationList> localVarResponse = await GetMangaIdRecommendationWithHttpInfoAsync(id, includes, order, contentRating, operationIndex, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Manga recommendation list
+        /// </summary>
+        /// <exception cref="MangaDex.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">Manga ID</param>
+        /// <param name="includes"> (optional)</param>
+        /// <param name="order"> (optional)</param>
+        /// <param name="contentRating"> (optional)</param>
+        /// <param name="operationIndex">Index associated with the operation.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (MangaRecommendationList)</returns>
+        public async System.Threading.Tasks.Task<MangaDex.Client.ApiResponse<MangaRecommendationList>> GetMangaIdRecommendationWithHttpInfoAsync(Guid id, List<string> includes = default(List<string>), GetMangaIdRecommendationOrderParameter order = default(GetMangaIdRecommendationOrderParameter), List<string> contentRating = default(List<string>), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+
+            MangaDex.Client.RequestOptions localVarRequestOptions = new MangaDex.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = MangaDex.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+            }
+
+            var localVarAccept = MangaDex.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null)
+            {
+                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+            }
+
+            localVarRequestOptions.PathParameters.Add("id", MangaDex.Client.ClientUtils.ParameterToString(id)); // path parameter
+            if (includes != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(MangaDex.Client.ClientUtils.ParameterToMultiMap("multi", "includes[]", includes));
+            }
+            if (order != null)
+            {
+                if (order.Score != null)
+                {
+                    localVarRequestOptions.QueryParameters.Add(MangaDex.Client.ClientUtils.ParameterToMultiMap("", "order[score]", order.Score));
+                }
+            }
+            if (contentRating != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(MangaDex.Client.ClientUtils.ParameterToMultiMap("multi", "contentRating[]", contentRating));
+            }
+
+            localVarRequestOptions.Operation = "MangaApi.GetMangaIdRecommendation";
+            localVarRequestOptions.OperationIndex = operationIndex;
+
+
+            // make the HTTP request
+            var localVarResponse = await this.AsynchronousClient.GetAsync<MangaRecommendationList>("/manga/{id}/recommendation", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("GetMangaIdRecommendation", localVarResponse);
                 if (_exception != null)
                 {
                     throw _exception;

@@ -55,6 +55,7 @@ namespace MangaDex.Model
         /// Gets or Sets Result
         /// </summary>
         [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = true)]
+        [JsonPropertyName("result")]
         public ResultEnum Result { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="RefreshResponse" /> class.

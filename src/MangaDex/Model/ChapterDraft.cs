@@ -79,24 +79,28 @@ namespace MangaDex.Model
         /// Gets or Sets Volume
         /// </summary>
         [DataMember(Name = "volume", IsRequired = true, EmitDefaultValue = true)]
+        [JsonPropertyName("volume")]
         public string Volume { get; set; }
 
         /// <summary>
         /// Gets or Sets Chapter
         /// </summary>
         [DataMember(Name = "chapter", IsRequired = true, EmitDefaultValue = true)]
+        [JsonPropertyName("chapter")]
         public string Chapter { get; set; }
 
         /// <summary>
         /// Gets or Sets Title
         /// </summary>
         [DataMember(Name = "title", IsRequired = true, EmitDefaultValue = true)]
+        [JsonPropertyName("title")]
         public string Title { get; set; }
 
         /// <summary>
         /// Gets or Sets TranslatedLanguage
         /// </summary>
         [DataMember(Name = "translatedLanguage", IsRequired = true, EmitDefaultValue = true)]
+        [JsonPropertyName("translatedLanguage")]
         public string TranslatedLanguage { get; set; }
 
         /// <summary>

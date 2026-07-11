@@ -79,6 +79,7 @@ namespace MangaDex.Model
         /// Gets or Sets Status
         /// </summary>
         [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = true)]
+        [JsonPropertyName("status")]
         public StatusEnum Status { get; set; }
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdateMangaStatus" /> class.
