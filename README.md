@@ -31,18 +31,14 @@ This C# SDK is a hand-maintained client for the MangaDex API, built on Refit and
 <a id="dependencies"></a>
 ## Dependencies
 
-- [RestSharp](https://www.nuget.org/packages/RestSharp) - 114.0.0 or later
 - [System.Text.Json](https://www.nuget.org/packages/System.Text.Json/) - 10.0.9 or later
 - [Refit](https://www.nuget.org/packages/Refit/) - 13.1.0 or later
-- [Polly](https://www.nuget.org/packages/Polly/) - 8.7.0 or later
 - [System.ComponentModel.Annotations](https://www.nuget.org/packages/System.ComponentModel.Annotations) - 5.0.0 or later
 
 The DLLs included in the package may not be the latest version. We recommend using [NuGet](https://docs.nuget.org/consume/installing-nuget) to obtain the latest version of the packages:
 ```
-Install-Package RestSharp
 Install-Package System.Text.Json
 Install-Package Refit
-Install-Package Polly
 Install-Package System.ComponentModel.Annotations
 ```
 
@@ -52,7 +48,7 @@ Generate the DLL using your preferred tool (e.g. `dotnet build`)
 
 Then include the DLL (under the `bin` folder) in the C# project, and use the namespaces:
 ```csharp
-using MangaDex.Api.Refit;   // the Refit interfaces (IMangaApi, IChapterApi, ...)
+using MangaDex.Api;         // the Refit interfaces (IMangaApi, IChapterApi, ...)
 using MangaDex.Client;      // SerializerOptions
 using MangaDex.Model;
 using Refit;
@@ -83,7 +79,7 @@ http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer
 using System;
 using System.Diagnostics;
 using System.Net.Http;
-using MangaDex.Api.Refit;
+using MangaDex.Api;
 using MangaDex.Client;
 using Refit;
 
