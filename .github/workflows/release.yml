@@ -1,0 +1,73 @@
+name: Release to NuGet
+
+# Publishes the MangaDex package to nuget.org.
+#
+# Trigger by publishing a GitHub Release whose tag is the version (optionally
+# "v"-prefixed), e.g. tag `v5.13.1` or `5.13.1.1`. The tag becomes the package
+# version, so the release and the published package always match. You can also
+# run it manually (workflow_dispatch) with an explicit version, or leave the
+# version blank to pack the <Version> from MangaDex.csproj as-is.
+#
+# Requires repository secret: NUGET_API_KEY (an api.nuget.org push key).
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Package version (e.g. 5.13.1.X). Leave blank to use the .csproj <Version>."
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Resolve version
+        id: ver
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            v="${GITHUB_REF_NAME#v}"          # strip an optional leading "v" from the tag
+          else
+            v="${{ github.event.inputs.version }}"
+          fi
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          echo "Resolved version: ${v:-<csproj default>}"
+
+      - name: Restore
+        run: dotnet restore MangaDex.sln
+
+      - name: Build
+        shell: bash
+        run: |
+          ver_arg=""
+          [ -n "${{ steps.ver.outputs.version }}" ] && ver_arg="-p:Version=${{ steps.ver.outputs.version }}"
+          dotnet build MangaDex.sln -c Release --no-restore $ver_arg
+
+      - name: Test
+        run: dotnet test MangaDex.sln -c Release --no-build
+
+      - name: Pack
+        shell: bash
+        run: |
+          ver_arg=""
+          [ -n "${{ steps.ver.outputs.version }}" ] && ver_arg="-p:Version=${{ steps.ver.outputs.version }}"
+          dotnet pack src/MangaDex/MangaDex.csproj -c Release --no-build -o artifacts $ver_arg
+
+      - name: Push to NuGet
+        run: >
+          dotnet nuget push "artifacts/*.nupkg"
+          --api-key "${{ secrets.NUGET_API_KEY }}"
+          --source https://api.nuget.org/v3/index.json
+          --skip-duplicate

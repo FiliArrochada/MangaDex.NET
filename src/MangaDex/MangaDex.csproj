@@ -12,7 +12,9 @@
     <Description>A .NET client library for the MangaDex API.</Description>
     <Copyright>Copyright (c) 2026 MangaDex.NET</Copyright>
     <RootNamespace>MangaDex</RootNamespace>
-    <Version>0.1.0</Version>
+    <!-- Version tracks the MangaDex API version (Major.Minor.Patch); the 4th revision
+         component is bumped for client-only fixes against the same API version (e.g. 5.13.1.1). -->
+    <Version>5.13.1.0</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\MangaDex.xml</DocumentationFile>
     <!-- CS1591: undocumented members (generated Refit interfaces); CS8073: value-type != null in generated Equals -->
     <NoWarn>$(NoWarn);CS1591;CS8073</NoWarn>
