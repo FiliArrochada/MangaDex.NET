@@ -26,15 +26,14 @@ This C# SDK was originally generated from the MangaDex OpenAPI specification by 
 
 <a id="frameworks-supported"></a>
 ## Frameworks supported
-- .NET Core >=1.0
-- .NET Framework >=4.6
-- Mono/Xamarin >=vNext
+- .NET 8.0
 
 <a id="dependencies"></a>
 ## Dependencies
 
 - [RestSharp](https://www.nuget.org/packages/RestSharp) - 114.0.0 or later
 - [System.Text.Json](https://www.nuget.org/packages/System.Text.Json/) - 10.0.9 or later
+- [Refit](https://www.nuget.org/packages/Refit/) - 13.1.0 or later
 - [Polly](https://www.nuget.org/packages/Polly/) - 8.7.0 or later
 - [System.ComponentModel.Annotations](https://www.nuget.org/packages/System.ComponentModel.Annotations) - 5.0.0 or later
 
@@ -42,6 +41,7 @@ The DLLs included in the package may not be the latest version. We recommend usi
 ```
 Install-Package RestSharp
 Install-Package System.Text.Json
+Install-Package Refit
 Install-Package Polly
 Install-Package System.ComponentModel.Annotations
 ```
