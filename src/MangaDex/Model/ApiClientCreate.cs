@@ -1,26 +1,18 @@
 /*
  * MangaDex API
  *
- * MangaDex is an ad-free manga reader offering high-quality images!  This document details our API as it is right now. It is in no way a promise to never change it, although we will endeavour to publicly notify any major change.  # Acceptable use policy  Usage of our services implies acceptance of the following: - You **MUST** credit us - You **MUST** credit scanlation groups if you offer the ability to read chapters - You **CANNOT** run ads or paid services on your website and/or apps  These may change at any time for any and no reason and it is up to you check for updates from time to time.  # Security issues  If you believe you found a security issue in our API, please check our [security.txt](/security.txt) to get in touch privately. 
+ * MangaDex is an ad-free manga reader offering high-quality images!  This document details our API as it is right now. It is in no way a promise to never change it, although we will endeavour to publicly notify any major change.  # Acceptable use policy  Usage of our services implies acceptance of the following: - You **MUST** credit us - You **MUST** credit scanlation groups if you offer the ability to read chapters - You **CANNOT** run ads or paid services on your website and/or apps  These may change at any time for any and no reason and it is up to you check for updates from time to time.  # Security issues  If you believe you found a security issue in our API, please check our [security.txt](/security.txt) to get in touch privately.
  *
- * The version of the OpenAPI document: 5.10.0
+ * The version of the OpenAPI document: 5.13.1
  * Contact: support@mangadex.org
  */
 
-
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.IO;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.ComponentModel.DataAnnotations;
-using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 
 namespace MangaDex.Model
 {
@@ -43,18 +35,20 @@ namespace MangaDex.Model
             Personal = 1
         }
 
-
         /// <summary>
         /// Gets or Sets Profile
         /// </summary>
         [DataMember(Name = "profile", IsRequired = true, EmitDefaultValue = true)]
         [JsonPropertyName("profile")]
         public ProfileEnum Profile { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClientCreate" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected ApiClientCreate() { }
+        protected ApiClientCreate()
+        { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClientCreate" /> class.
         /// </summary>
@@ -143,21 +137,21 @@ namespace MangaDex.Model
             {
                 return false;
             }
-            return 
+            return
                 (
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
-                ) && 
+                ) &&
                 (
                     this.Description == input.Description ||
                     (this.Description != null &&
                     this.Description.Equals(input.Description))
-                ) && 
+                ) &&
                 (
                     this.Profile == input.Profile ||
                     this.Profile.Equals(input.Profile)
-                ) && 
+                ) &&
                 (
                     this.VarVersion == input.VarVersion ||
                     this.VarVersion.Equals(input.VarVersion)
@@ -197,29 +191,28 @@ namespace MangaDex.Model
             // Name (string) maxLength
             if (this.Name != null && this.Name.Length > 32)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Name, length must be less than 32.", new [] { "Name" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Name, length must be less than 32.", new[] { "Name" });
             }
 
             // Name (string) minLength
             if (this.Name != null && this.Name.Length < 5)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Name, length must be greater than 5.", new [] { "Name" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Name, length must be greater than 5.", new[] { "Name" });
             }
 
             // Description (string) maxLength
             if (this.Description != null && this.Description.Length > 1024)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Description, length must be less than 1024.", new [] { "Description" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Description, length must be less than 1024.", new[] { "Description" });
             }
 
             // VarVersion (int) minimum
             if (this.VarVersion < (int)1)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for VarVersion, must be a value greater than or equal to 1.", new [] { "VarVersion" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for VarVersion, must be a value greater than or equal to 1.", new[] { "VarVersion" });
             }
 
             yield break;
         }
     }
-
 }

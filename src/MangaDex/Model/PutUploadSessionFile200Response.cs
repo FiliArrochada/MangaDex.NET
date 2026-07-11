@@ -1,26 +1,19 @@
 /*
  * MangaDex API
  *
- * MangaDex is an ad-free manga reader offering high-quality images!  This document details our API as it is right now. It is in no way a promise to never change it, although we will endeavour to publicly notify any major change.  # Acceptable use policy  Usage of our services implies acceptance of the following: - You **MUST** credit us - You **MUST** credit scanlation groups if you offer the ability to read chapters - You **CANNOT** run ads or paid services on your website and/or apps  These may change at any time for any and no reason and it is up to you check for updates from time to time.  # Security issues  If you believe you found a security issue in our API, please check our [security.txt](/security.txt) to get in touch privately. 
+ * MangaDex is an ad-free manga reader offering high-quality images!  This document details our API as it is right now. It is in no way a promise to never change it, although we will endeavour to publicly notify any major change.  # Acceptable use policy  Usage of our services implies acceptance of the following: - You **MUST** credit us - You **MUST** credit scanlation groups if you offer the ability to read chapters - You **CANNOT** run ads or paid services on your website and/or apps  These may change at any time for any and no reason and it is up to you check for updates from time to time.  # Security issues  If you believe you found a security issue in our API, please check our [security.txt](/security.txt) to get in touch privately.
  *
- * The version of the OpenAPI document: 5.10.0
+ * The version of the OpenAPI document: 5.13.1
  * Contact: support@mangadex.org
  */
 
-
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.ComponentModel.DataAnnotations;
-using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 
 namespace MangaDex.Model
 {
@@ -49,7 +42,6 @@ namespace MangaDex.Model
             Error = 2
         }
 
-
         /// <summary>
         /// Gets or Sets Result
         /// </summary>
@@ -57,6 +49,7 @@ namespace MangaDex.Model
         [JsonPropertyName("result")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public ResultEnum? Result { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PutUploadSessionFile200Response" /> class.
         /// </summary>
@@ -131,17 +124,17 @@ namespace MangaDex.Model
             {
                 return false;
             }
-            return 
+            return
                 (
                     this.Result == input.Result ||
                     this.Result.Equals(input.Result)
-                ) && 
+                ) &&
                 (
                     this.Errors == input.Errors ||
                     this.Errors != null &&
                     input.Errors != null &&
                     this.Errors.SequenceEqual(input.Errors)
-                ) && 
+                ) &&
                 (
                     this.Data == input.Data ||
                     this.Data != null &&
@@ -182,5 +175,4 @@ namespace MangaDex.Model
             yield break;
         }
     }
-
 }

@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Refit;
 using MangaDex.Model;
+using Refit;
 
 namespace MangaDex.Api
 {
@@ -10,6 +9,5 @@ namespace MangaDex.Api
     {
         [Get("/at-home/server/{chapterId}")]
         Task<GetAtHomeServerChapterId200Response> GetAtHomeServerChapterId(Guid chapterId, bool? forcePort443 = null);
-
     }
 }

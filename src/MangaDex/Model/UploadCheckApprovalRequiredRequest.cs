@@ -7,20 +7,12 @@
  * Contact: support@mangadex.org
  */
 
-
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.IO;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.ComponentModel.DataAnnotations;
-using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 
 namespace MangaDex.Model
 {
@@ -145,5 +137,4 @@ namespace MangaDex.Model
             yield break;
         }
     }
-
 }

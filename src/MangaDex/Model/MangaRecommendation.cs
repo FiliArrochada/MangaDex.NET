@@ -7,20 +7,13 @@
  * Contact: support@mangadex.org
  */
 
-
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.ComponentModel.DataAnnotations;
-using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 
 namespace MangaDex.Model
 {
@@ -43,7 +36,6 @@ namespace MangaDex.Model
             MangaRecommendation = 1
         }
 
-
         /// <summary>
         /// Gets or Sets Type
         /// </summary>
@@ -51,6 +43,7 @@ namespace MangaDex.Model
         [JsonPropertyName("type")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public TypeEnum? Type { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MangaRecommendation" /> class.
         /// </summary>
@@ -195,5 +188,4 @@ namespace MangaDex.Model
             yield break;
         }
     }
-
 }

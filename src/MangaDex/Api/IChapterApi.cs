@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Refit;
 using MangaDex.Model;
+using Refit;
 
 namespace MangaDex.Api
 {
@@ -17,8 +17,8 @@ namespace MangaDex.Api
         [Get("/chapter/{id}")]
         Task<ChapterResponse> GetChapterId(Guid id, [Query(CollectionFormat.Multi), AliasAs("includes[]")] List<string> includes = null);
 
-        [Put("/chapter/{id}")] [Headers("Content-Type: application/json")]
+        [Put("/chapter/{id}")]
+        [Headers("Content-Type: application/json")]
         Task<ChapterResponse> PutChapterId(Guid id, [Body] ChapterEdit chapterEdit = null);
-
     }
 }

@@ -10,15 +10,17 @@
     <Company>MangaDex.NET</Company>
     <AssemblyTitle>MangaDex API Client</AssemblyTitle>
     <Description>A .NET client library for the MangaDex API.</Description>
-    <Copyright>No Copyright</Copyright>
+    <Copyright>Copyright (c) 2026 MangaDex.NET</Copyright>
     <RootNamespace>MangaDex</RootNamespace>
     <Version>0.1.0</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\MangaDex.xml</DocumentationFile>
     <!-- CS1591: undocumented members (generated Refit interfaces); CS8073: value-type != null in generated Equals -->
     <NoWarn>$(NoWarn);CS1591;CS8073</NoWarn>
-    <RepositoryUrl>https://github.com/GIT_USER_ID/GIT_REPO_ID.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/MangaDex.NET</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MangaDex.NET.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Minor update</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReleaseNotes>First Refit-native release: typed Refit interfaces over the MangaDex API (5.13.1) with System.Text.Json serialization.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

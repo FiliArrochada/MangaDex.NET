@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Refit;
 using MangaDex.Model;
+using Refit;
 
 namespace MangaDex.Api
 {
@@ -17,8 +17,8 @@ namespace MangaDex.Api
         [Get("/user/history")]
         Task<GetReadingHistory200Response> GetReadingHistory();
 
-        [Post("/manga/{id}/read")] [Headers("Content-Type: application/json")]
+        [Post("/manga/{id}/read")]
+        [Headers("Content-Type: application/json")]
         Task<FollowListId200Response> PostMangaChapterReadmarkers(Guid id, bool? updateHistory = null, [Body] ChapterReadMarkerBatch chapterReadMarkerBatch = null);
-
     }
 }

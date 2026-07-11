@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Refit;
 using MangaDex.Model;
+using Refit;
 
 namespace MangaDex.Api
 {
@@ -17,11 +17,12 @@ namespace MangaDex.Api
         [Get("/author/{id}")]
         Task<AuthorResponse> GetAuthorId(Guid id, [Query(CollectionFormat.Multi), AliasAs("includes[]")] List<string> includes = null);
 
-        [Post("/author")] [Headers("Content-Type: application/json")]
+        [Post("/author")]
+        [Headers("Content-Type: application/json")]
         Task<AuthorResponse> PostAuthor([Body] AuthorCreate authorCreate = null);
 
-        [Put("/author/{id}")] [Headers("Content-Type: application/json")]
+        [Put("/author/{id}")]
+        [Headers("Content-Type: application/json")]
         Task<AuthorResponse> PutAuthorId(Guid id, [Body] AuthorEdit authorEdit = null);
-
     }
 }

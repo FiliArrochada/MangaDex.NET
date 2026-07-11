@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Refit;
 using MangaDex.Model;
+using Refit;
 
 namespace MangaDex.Api
 {
@@ -11,7 +11,8 @@ namespace MangaDex.Api
         [Delete("/cover/{mangaOrCoverId}")]
         Task<Response> DeleteCover(Guid mangaOrCoverId);
 
-        [Put("/cover/{mangaOrCoverId}")] [Headers("Content-Type: application/json")]
+        [Put("/cover/{mangaOrCoverId}")]
+        [Headers("Content-Type: application/json")]
         Task<CoverResponse> EditCover(Guid mangaOrCoverId, [Body] CoverEdit coverEdit = null);
 
         [Get("/cover")]
@@ -20,8 +21,8 @@ namespace MangaDex.Api
         [Get("/cover/{mangaOrCoverId}")]
         Task<CoverResponse> GetCoverId(Guid mangaOrCoverId, [Query(CollectionFormat.Multi), AliasAs("includes[]")] List<string> includes = null);
 
-        [Post("/cover/{mangaOrCoverId}")] [Multipart]
+        [Post("/cover/{mangaOrCoverId}")]
+        [Multipart]
         Task<CoverResponse> UploadCover(Guid mangaOrCoverId, [AliasAs("file")] StreamPart file, string volume = null, string description = null, string locale = null);
-
     }
 }

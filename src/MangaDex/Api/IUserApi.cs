@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Refit;
 using MangaDex.Model;
+using Refit;
 
 namespace MangaDex.Api
 {
@@ -22,6 +22,5 @@ namespace MangaDex.Api
 
         [Post("/user/delete/{code}")]
         Task<Response> PostUserDeleteCode(Guid code);
-
     }
 }

@@ -1,26 +1,20 @@
 /*
  * MangaDex API
  *
- * MangaDex is an ad-free manga reader offering high-quality images!  This document details our API as it is right now. It is in no way a promise to never change it, although we will endeavour to publicly notify any major change.  # Acceptable use policy  Usage of our services implies acceptance of the following: - You **MUST** credit us - You **MUST** credit scanlation groups if you offer the ability to read chapters - You **CANNOT** run ads or paid services on your website and/or apps  These may change at any time for any and no reason and it is up to you check for updates from time to time.  # Security issues  If you believe you found a security issue in our API, please check our [security.txt](/security.txt) to get in touch privately. 
+ * MangaDex is an ad-free manga reader offering high-quality images!  This document details our API as it is right now. It is in no way a promise to never change it, although we will endeavour to publicly notify any major change.  # Acceptable use policy  Usage of our services implies acceptance of the following: - You **MUST** credit us - You **MUST** credit scanlation groups if you offer the ability to read chapters - You **CANNOT** run ads or paid services on your website and/or apps  These may change at any time for any and no reason and it is up to you check for updates from time to time.  # Security issues  If you believe you found a security issue in our API, please check our [security.txt](/security.txt) to get in touch privately.
  *
- * The version of the OpenAPI document: 5.10.0
+ * The version of the OpenAPI document: 5.13.1
  * Contact: support@mangadex.org
  */
 
-
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.ComponentModel.DataAnnotations;
-using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
+using System.Text.RegularExpressions;
 
 namespace MangaDex.Model
 {
@@ -246,83 +240,83 @@ namespace MangaDex.Model
             {
                 return false;
             }
-            return 
+            return
                 (
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
-                ) && 
+                ) &&
                 (
                     this.Biography == input.Biography ||
                     this.Biography != null &&
                     input.Biography != null &&
                     this.Biography.SequenceEqual(input.Biography)
-                ) && 
+                ) &&
                 (
                     this.Twitter == input.Twitter ||
                     (this.Twitter != null &&
                     this.Twitter.Equals(input.Twitter))
-                ) && 
+                ) &&
                 (
                     this.Pixiv == input.Pixiv ||
                     (this.Pixiv != null &&
                     this.Pixiv.Equals(input.Pixiv))
-                ) && 
+                ) &&
                 (
                     this.MelonBook == input.MelonBook ||
                     (this.MelonBook != null &&
                     this.MelonBook.Equals(input.MelonBook))
-                ) && 
+                ) &&
                 (
                     this.FanBox == input.FanBox ||
                     (this.FanBox != null &&
                     this.FanBox.Equals(input.FanBox))
-                ) && 
+                ) &&
                 (
                     this.Booth == input.Booth ||
                     (this.Booth != null &&
                     this.Booth.Equals(input.Booth))
-                ) && 
+                ) &&
                 (
                     this.NicoVideo == input.NicoVideo ||
                     (this.NicoVideo != null &&
                     this.NicoVideo.Equals(input.NicoVideo))
-                ) && 
+                ) &&
                 (
                     this.Skeb == input.Skeb ||
                     (this.Skeb != null &&
                     this.Skeb.Equals(input.Skeb))
-                ) && 
+                ) &&
                 (
                     this.Fantia == input.Fantia ||
                     (this.Fantia != null &&
                     this.Fantia.Equals(input.Fantia))
-                ) && 
+                ) &&
                 (
                     this.Tumblr == input.Tumblr ||
                     (this.Tumblr != null &&
                     this.Tumblr.Equals(input.Tumblr))
-                ) && 
+                ) &&
                 (
                     this.Youtube == input.Youtube ||
                     (this.Youtube != null &&
                     this.Youtube.Equals(input.Youtube))
-                ) && 
+                ) &&
                 (
                     this.Weibo == input.Weibo ||
                     (this.Weibo != null &&
                     this.Weibo.Equals(input.Weibo))
-                ) && 
+                ) &&
                 (
                     this.Naver == input.Naver ||
                     (this.Naver != null &&
                     this.Naver.Equals(input.Naver))
-                ) && 
+                ) &&
                 (
                     this.Website == input.Website ||
                     (this.Website != null &&
                     this.Website.Equals(input.Website))
-                ) && 
+                ) &&
                 (
                     this.VarVersion == input.VarVersion ||
                     this.VarVersion.Equals(input.VarVersion)
@@ -410,131 +404,143 @@ namespace MangaDex.Model
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            if (this.Twitter != null) {
+            if (this.Twitter != null)
+            {
                 // Twitter (string) pattern
-Regex regexTwitter = new Regex(@"^https?://twitter\.com(/|$)", RegexOptions.CultureInvariant);
-if (!regexTwitter.Match(this.Twitter).Success)
-{
-    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Twitter, must match a pattern of " + regexTwitter, new [] { "Twitter" });
-}
+                Regex regexTwitter = new Regex(@"^https?://twitter\.com(/|$)", RegexOptions.CultureInvariant);
+                if (!regexTwitter.Match(this.Twitter).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Twitter, must match a pattern of " + regexTwitter, new[] { "Twitter" });
+                }
             }
 
-            if (this.Pixiv != null) {
+            if (this.Pixiv != null)
+            {
                 // Pixiv (string) pattern
-Regex regexPixiv = new Regex(@"^https?://([\w-]+\.)?pixiv\.net(/|$)", RegexOptions.CultureInvariant);
-if (!regexPixiv.Match(this.Pixiv).Success)
-{
-    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Pixiv, must match a pattern of " + regexPixiv, new [] { "Pixiv" });
-}
+                Regex regexPixiv = new Regex(@"^https?://([\w-]+\.)?pixiv\.net(/|$)", RegexOptions.CultureInvariant);
+                if (!regexPixiv.Match(this.Pixiv).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Pixiv, must match a pattern of " + regexPixiv, new[] { "Pixiv" });
+                }
             }
 
-            if (this.MelonBook != null) {
+            if (this.MelonBook != null)
+            {
                 // MelonBook (string) pattern
-Regex regexMelonBook = new Regex(@"^https?://([\w-]+\.)?melonbooks\.co\.jp(/|$)", RegexOptions.CultureInvariant);
-if (!regexMelonBook.Match(this.MelonBook).Success)
-{
-    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for MelonBook, must match a pattern of " + regexMelonBook, new [] { "MelonBook" });
-}
+                Regex regexMelonBook = new Regex(@"^https?://([\w-]+\.)?melonbooks\.co\.jp(/|$)", RegexOptions.CultureInvariant);
+                if (!regexMelonBook.Match(this.MelonBook).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for MelonBook, must match a pattern of " + regexMelonBook, new[] { "MelonBook" });
+                }
             }
 
-            if (this.FanBox != null) {
+            if (this.FanBox != null)
+            {
                 // FanBox (string) pattern
-Regex regexFanBox = new Regex(@"^https?://([\w-]+\.)?fanbox\.cc(/|$)", RegexOptions.CultureInvariant);
-if (!regexFanBox.Match(this.FanBox).Success)
-{
-    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for FanBox, must match a pattern of " + regexFanBox, new [] { "FanBox" });
-}
+                Regex regexFanBox = new Regex(@"^https?://([\w-]+\.)?fanbox\.cc(/|$)", RegexOptions.CultureInvariant);
+                if (!regexFanBox.Match(this.FanBox).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for FanBox, must match a pattern of " + regexFanBox, new[] { "FanBox" });
+                }
             }
 
-            if (this.Booth != null) {
+            if (this.Booth != null)
+            {
                 // Booth (string) pattern
-Regex regexBooth = new Regex(@"^https?://([\w-]+\.)?booth\.pm(/|$)", RegexOptions.CultureInvariant);
-if (!regexBooth.Match(this.Booth).Success)
-{
-    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Booth, must match a pattern of " + regexBooth, new [] { "Booth" });
-}
+                Regex regexBooth = new Regex(@"^https?://([\w-]+\.)?booth\.pm(/|$)", RegexOptions.CultureInvariant);
+                if (!regexBooth.Match(this.Booth).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Booth, must match a pattern of " + regexBooth, new[] { "Booth" });
+                }
             }
 
-            if (this.NicoVideo != null) {
+            if (this.NicoVideo != null)
+            {
                 // NicoVideo (string) pattern
-Regex regexNicoVideo = new Regex(@"^https?://([\w-]+\.)?nicovideo\.jp(/|$)", RegexOptions.CultureInvariant);
-if (!regexNicoVideo.Match(this.NicoVideo).Success)
-{
-    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for NicoVideo, must match a pattern of " + regexNicoVideo, new [] { "NicoVideo" });
-}
+                Regex regexNicoVideo = new Regex(@"^https?://([\w-]+\.)?nicovideo\.jp(/|$)", RegexOptions.CultureInvariant);
+                if (!regexNicoVideo.Match(this.NicoVideo).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for NicoVideo, must match a pattern of " + regexNicoVideo, new[] { "NicoVideo" });
+                }
             }
 
-            if (this.Skeb != null) {
+            if (this.Skeb != null)
+            {
                 // Skeb (string) pattern
-Regex regexSkeb = new Regex(@"^https?://([\w-]+\.)?skeb\.jp(/|$)", RegexOptions.CultureInvariant);
-if (!regexSkeb.Match(this.Skeb).Success)
-{
-    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Skeb, must match a pattern of " + regexSkeb, new [] { "Skeb" });
-}
+                Regex regexSkeb = new Regex(@"^https?://([\w-]+\.)?skeb\.jp(/|$)", RegexOptions.CultureInvariant);
+                if (!regexSkeb.Match(this.Skeb).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Skeb, must match a pattern of " + regexSkeb, new[] { "Skeb" });
+                }
             }
 
-            if (this.Fantia != null) {
+            if (this.Fantia != null)
+            {
                 // Fantia (string) pattern
-Regex regexFantia = new Regex(@"^https?://([\w-]+\.)?fantia\.jp(/|$)", RegexOptions.CultureInvariant);
-if (!regexFantia.Match(this.Fantia).Success)
-{
-    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Fantia, must match a pattern of " + regexFantia, new [] { "Fantia" });
-}
+                Regex regexFantia = new Regex(@"^https?://([\w-]+\.)?fantia\.jp(/|$)", RegexOptions.CultureInvariant);
+                if (!regexFantia.Match(this.Fantia).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Fantia, must match a pattern of " + regexFantia, new[] { "Fantia" });
+                }
             }
 
-            if (this.Tumblr != null) {
+            if (this.Tumblr != null)
+            {
                 // Tumblr (string) pattern
-Regex regexTumblr = new Regex(@"^https?://([\w-]+\.)?tumblr\.com(/|$)", RegexOptions.CultureInvariant);
-if (!regexTumblr.Match(this.Tumblr).Success)
-{
-    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Tumblr, must match a pattern of " + regexTumblr, new [] { "Tumblr" });
-}
+                Regex regexTumblr = new Regex(@"^https?://([\w-]+\.)?tumblr\.com(/|$)", RegexOptions.CultureInvariant);
+                if (!regexTumblr.Match(this.Tumblr).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Tumblr, must match a pattern of " + regexTumblr, new[] { "Tumblr" });
+                }
             }
 
-            if (this.Youtube != null) {
+            if (this.Youtube != null)
+            {
                 // Youtube (string) pattern
-Regex regexYoutube = new Regex(@"^https?://www\.youtube\.com(/|$)", RegexOptions.CultureInvariant);
-if (!regexYoutube.Match(this.Youtube).Success)
-{
-    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Youtube, must match a pattern of " + regexYoutube, new [] { "Youtube" });
-}
+                Regex regexYoutube = new Regex(@"^https?://www\.youtube\.com(/|$)", RegexOptions.CultureInvariant);
+                if (!regexYoutube.Match(this.Youtube).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Youtube, must match a pattern of " + regexYoutube, new[] { "Youtube" });
+                }
             }
 
-            if (this.Weibo != null) {
+            if (this.Weibo != null)
+            {
                 // Weibo (string) pattern
-Regex regexWeibo = new Regex(@"^https?://([\w-]+\.)?weibo\.(cn|com)(/|$)", RegexOptions.CultureInvariant);
-if (!regexWeibo.Match(this.Weibo).Success)
-{
-    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Weibo, must match a pattern of " + regexWeibo, new [] { "Weibo" });
-}
+                Regex regexWeibo = new Regex(@"^https?://([\w-]+\.)?weibo\.(cn|com)(/|$)", RegexOptions.CultureInvariant);
+                if (!regexWeibo.Match(this.Weibo).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Weibo, must match a pattern of " + regexWeibo, new[] { "Weibo" });
+                }
             }
 
-            if (this.Naver != null) {
+            if (this.Naver != null)
+            {
                 // Naver (string) pattern
-Regex regexNaver = new Regex(@"^https?://([\w-]+\.)?naver\.com(/|$)", RegexOptions.CultureInvariant);
-if (!regexNaver.Match(this.Naver).Success)
-{
-    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Naver, must match a pattern of " + regexNaver, new [] { "Naver" });
-}
+                Regex regexNaver = new Regex(@"^https?://([\w-]+\.)?naver\.com(/|$)", RegexOptions.CultureInvariant);
+                if (!regexNaver.Match(this.Naver).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Naver, must match a pattern of " + regexNaver, new[] { "Naver" });
+                }
             }
 
-            if (this.Website != null) {
+            if (this.Website != null)
+            {
                 // Website (string) pattern
-Regex regexWebsite = new Regex(@"^https?://", RegexOptions.CultureInvariant);
-if (!regexWebsite.Match(this.Website).Success)
-{
-    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Website, must match a pattern of " + regexWebsite, new [] { "Website" });
-}
+                Regex regexWebsite = new Regex(@"^https?://", RegexOptions.CultureInvariant);
+                if (!regexWebsite.Match(this.Website).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Website, must match a pattern of " + regexWebsite, new[] { "Website" });
+                }
             }
 
             // VarVersion (int) minimum
             if (this.VarVersion < (int)1)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for VarVersion, must be a value greater than or equal to 1.", new [] { "VarVersion" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for VarVersion, must be a value greater than or equal to 1.", new[] { "VarVersion" });
             }
 
             yield break;
         }
     }
-
 }

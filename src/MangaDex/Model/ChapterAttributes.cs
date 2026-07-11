@@ -1,26 +1,19 @@
 /*
  * MangaDex API
  *
- * MangaDex is an ad-free manga reader offering high-quality images!  This document details our API as it is right now. It is in no way a promise to never change it, although we will endeavour to publicly notify any major change.  # Acceptable use policy  Usage of our services implies acceptance of the following: - You **MUST** credit us - You **MUST** credit scanlation groups if you offer the ability to read chapters - You **CANNOT** run ads or paid services on your website and/or apps  These may change at any time for any and no reason and it is up to you check for updates from time to time.  # Security issues  If you believe you found a security issue in our API, please check our [security.txt](/security.txt) to get in touch privately. 
+ * MangaDex is an ad-free manga reader offering high-quality images!  This document details our API as it is right now. It is in no way a promise to never change it, although we will endeavour to publicly notify any major change.  # Acceptable use policy  Usage of our services implies acceptance of the following: - You **MUST** credit us - You **MUST** credit scanlation groups if you offer the ability to read chapters - You **CANNOT** run ads or paid services on your website and/or apps  These may change at any time for any and no reason and it is up to you check for updates from time to time.  # Security issues  If you believe you found a security issue in our API, please check our [security.txt](/security.txt) to get in touch privately.
  *
- * The version of the OpenAPI document: 5.10.0
+ * The version of the OpenAPI document: 5.13.1
  * Contact: support@mangadex.org
  */
 
-
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.IO;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.ComponentModel.DataAnnotations;
-using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
+using System.Text.RegularExpressions;
 
 namespace MangaDex.Model
 {
@@ -219,36 +212,36 @@ namespace MangaDex.Model
             {
                 return false;
             }
-            return 
+            return
                 (
                     this.Title == input.Title ||
                     (this.Title != null &&
                     this.Title.Equals(input.Title))
-                ) && 
+                ) &&
                 (
                     this.Volume == input.Volume ||
                     (this.Volume != null &&
                     this.Volume.Equals(input.Volume))
-                ) && 
+                ) &&
                 (
                     this.Chapter == input.Chapter ||
                     (this.Chapter != null &&
                     this.Chapter.Equals(input.Chapter))
-                ) && 
+                ) &&
                 (
                     this.Pages == input.Pages ||
                     this.Pages.Equals(input.Pages)
-                ) && 
+                ) &&
                 (
                     this.TranslatedLanguage == input.TranslatedLanguage ||
                     (this.TranslatedLanguage != null &&
                     this.TranslatedLanguage.Equals(input.TranslatedLanguage))
-                ) && 
+                ) &&
                 (
                     this.Uploader == input.Uploader ||
                     (this.Uploader != null &&
                     this.Uploader.Equals(input.Uploader))
-                ) && 
+                ) &&
                 (
                     this.ExternalUrl == input.ExternalUrl ||
                     (this.ExternalUrl != null &&
@@ -266,17 +259,17 @@ namespace MangaDex.Model
                     this.CreatedAt == input.CreatedAt ||
                     (this.CreatedAt != null &&
                     this.CreatedAt.Equals(input.CreatedAt))
-                ) && 
+                ) &&
                 (
                     this.UpdatedAt == input.UpdatedAt ||
                     (this.UpdatedAt != null &&
                     this.UpdatedAt.Equals(input.UpdatedAt))
-                ) && 
+                ) &&
                 (
                     this.PublishAt == input.PublishAt ||
                     (this.PublishAt != null &&
                     this.PublishAt.Equals(input.PublishAt))
-                ) && 
+                ) &&
                 (
                     this.ReadableAt == input.ReadableAt ||
                     (this.ReadableAt != null &&
@@ -350,47 +343,48 @@ namespace MangaDex.Model
             // Title (string) maxLength
             if (this.Title != null && this.Title.Length > 255)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Title, length must be less than 255.", new [] { "Title" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Title, length must be less than 255.", new[] { "Title" });
             }
 
             // Chapter (string) maxLength
             if (this.Chapter != null && this.Chapter.Length > 8)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Chapter, length must be less than 8.", new [] { "Chapter" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Chapter, length must be less than 8.", new[] { "Chapter" });
             }
 
-            if (this.TranslatedLanguage != null) {
+            if (this.TranslatedLanguage != null)
+            {
                 // TranslatedLanguage (string) pattern
-Regex regexTranslatedLanguage = new Regex(@"^[a-z]{2}(-[a-z]{2})?$", RegexOptions.CultureInvariant);
-if (!regexTranslatedLanguage.Match(this.TranslatedLanguage).Success)
-{
-    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TranslatedLanguage, must match a pattern of " + regexTranslatedLanguage, new [] { "TranslatedLanguage" });
-}
+                Regex regexTranslatedLanguage = new Regex(@"^[a-z]{2}(-[a-z]{2})?$", RegexOptions.CultureInvariant);
+                if (!regexTranslatedLanguage.Match(this.TranslatedLanguage).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for TranslatedLanguage, must match a pattern of " + regexTranslatedLanguage, new[] { "TranslatedLanguage" });
+                }
             }
 
             // ExternalUrl (string) maxLength
             if (this.ExternalUrl != null && this.ExternalUrl.Length > 512)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for ExternalUrl, length must be less than 512.", new [] { "ExternalUrl" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for ExternalUrl, length must be less than 512.", new[] { "ExternalUrl" });
             }
 
-            if (this.ExternalUrl != null) {
+            if (this.ExternalUrl != null)
+            {
                 // ExternalUrl (string) pattern
-Regex regexExternalUrl = new Regex(@"^https?://", RegexOptions.CultureInvariant);
-if (!regexExternalUrl.Match(this.ExternalUrl).Success)
-{
-    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for ExternalUrl, must match a pattern of " + regexExternalUrl, new [] { "ExternalUrl" });
-}
+                Regex regexExternalUrl = new Regex(@"^https?://", RegexOptions.CultureInvariant);
+                if (!regexExternalUrl.Match(this.ExternalUrl).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for ExternalUrl, must match a pattern of " + regexExternalUrl, new[] { "ExternalUrl" });
+                }
             }
 
             // VarVersion (int) minimum
             if (this.VarVersion < (int)1)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for VarVersion, must be a value greater than or equal to 1.", new [] { "VarVersion" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for VarVersion, must be a value greater than or equal to 1.", new[] { "VarVersion" });
             }
 
             yield break;
         }
     }
-
 }

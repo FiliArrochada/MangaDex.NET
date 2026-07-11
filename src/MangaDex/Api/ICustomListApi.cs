@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Refit;
 using MangaDex.Model;
+using Refit;
 
 namespace MangaDex.Api
 {
@@ -14,7 +13,8 @@ namespace MangaDex.Api
         [Delete("/manga/{id}/list/{listId}")]
         Task<Response> DeleteMangaIdListListId(Guid id, Guid listId);
 
-        [Post("/list/{id}/follow")] [Headers("Content-Type: application/json")]
+        [Post("/list/{id}/follow")]
+        [Headers("Content-Type: application/json")]
         Task<FollowListId200Response> FollowListId(Guid id, [Body] Object body = null);
 
         [Get("/list/{id}")]
@@ -26,17 +26,19 @@ namespace MangaDex.Api
         [Get("/user/list")]
         Task<CustomListList> GetUserList(int? limit = null, int? offset = null);
 
-        [Post("/list")] [Headers("Content-Type: application/json")]
+        [Post("/list")]
+        [Headers("Content-Type: application/json")]
         Task<CustomListResponse> PostList([Body] CustomListCreate customListCreate = null);
 
         [Post("/manga/{id}/list/{listId}")]
         Task<Response> PostMangaIdListListId(Guid id, Guid listId);
 
-        [Put("/list/{id}")] [Headers("Content-Type: application/json")]
+        [Put("/list/{id}")]
+        [Headers("Content-Type: application/json")]
         Task<CustomListResponse> PutListId(Guid id, [Body] CustomListEdit customListEdit = null);
 
-        [Delete("/list/{id}/follow")] [Headers("Content-Type: application/json")]
+        [Delete("/list/{id}/follow")]
+        [Headers("Content-Type: application/json")]
         Task<FollowListId200Response> UnfollowListId(Guid id, [Body] Object body = null);
-
     }
 }

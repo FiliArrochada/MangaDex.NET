@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Refit;
 using MangaDex.Model;
+using Refit;
 
 namespace MangaDex.Api
 {
@@ -25,6 +25,5 @@ namespace MangaDex.Api
 
         [Get("/statistics/manga/{uuid}")]
         Task<GetStatisticsMangaUuid200Response> GetStatisticsMangaUuid(Guid uuid);
-
     }
 }

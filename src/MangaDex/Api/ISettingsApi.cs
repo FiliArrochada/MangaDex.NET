@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Refit;
 using MangaDex.Model;
+using Refit;
 
 namespace MangaDex.Api
 {
@@ -17,11 +16,12 @@ namespace MangaDex.Api
         [Get("/settings/template/{version}")]
         Task<Object> GetSettingsTemplateVersion(Guid version);
 
-        [Post("/settings")] [Headers("Content-Type: application/json")]
+        [Post("/settings")]
+        [Headers("Content-Type: application/json")]
         Task<PostSettings200Response> PostSettings([Body] PostSettingsRequest postSettingsRequest = null);
 
-        [Post("/settings/template")] [Headers("Content-Type: application/json")]
+        [Post("/settings/template")]
+        [Headers("Content-Type: application/json")]
         Task<Object> PostSettingsTemplate([Body] Object body = null);
-
     }
 }

@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Refit;
-using MangaDex.Model;
 
 namespace MangaDex.Api
 {
@@ -10,6 +7,5 @@ namespace MangaDex.Api
     {
         [Get("/ping")]
         Task<string> GetPing();
-
     }
 }

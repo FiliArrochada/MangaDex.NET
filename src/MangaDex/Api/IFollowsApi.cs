@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Refit;
 using MangaDex.Model;
+using Refit;
 
 namespace MangaDex.Api
 {
@@ -31,6 +31,5 @@ namespace MangaDex.Api
 
         [Get("/user/follows/user/{id}")]
         Task<Response> GetUserFollowsUserId(Guid id);
-
     }
 }

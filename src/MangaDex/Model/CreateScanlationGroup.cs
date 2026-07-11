@@ -1,26 +1,19 @@
 /*
  * MangaDex API
  *
- * MangaDex is an ad-free manga reader offering high-quality images!  This document details our API as it is right now. It is in no way a promise to never change it, although we will endeavour to publicly notify any major change.  # Acceptable use policy  Usage of our services implies acceptance of the following: - You **MUST** credit us - You **MUST** credit scanlation groups if you offer the ability to read chapters - You **CANNOT** run ads or paid services on your website and/or apps  These may change at any time for any and no reason and it is up to you check for updates from time to time.  # Security issues  If you believe you found a security issue in our API, please check our [security.txt](/security.txt) to get in touch privately. 
+ * MangaDex is an ad-free manga reader offering high-quality images!  This document details our API as it is right now. It is in no way a promise to never change it, although we will endeavour to publicly notify any major change.  # Acceptable use policy  Usage of our services implies acceptance of the following: - You **MUST** credit us - You **MUST** credit scanlation groups if you offer the ability to read chapters - You **CANNOT** run ads or paid services on your website and/or apps  These may change at any time for any and no reason and it is up to you check for updates from time to time.  # Security issues  If you believe you found a security issue in our API, please check our [security.txt](/security.txt) to get in touch privately.
  *
- * The version of the OpenAPI document: 5.10.0
+ * The version of the OpenAPI document: 5.13.1
  * Contact: support@mangadex.org
  */
 
-
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.IO;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.ComponentModel.DataAnnotations;
-using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
+using System.Text.RegularExpressions;
 
 namespace MangaDex.Model
 {
@@ -34,7 +27,9 @@ namespace MangaDex.Model
         /// Initializes a new instance of the <see cref="CreateScanlationGroup" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected CreateScanlationGroup() { }
+        protected CreateScanlationGroup()
+        { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateScanlationGroup" /> class.
         /// </summary>
@@ -199,56 +194,56 @@ namespace MangaDex.Model
             {
                 return false;
             }
-            return 
+            return
                 (
                     this.Name == input.Name ||
                     (this.Name != null &&
                     this.Name.Equals(input.Name))
-                ) && 
+                ) &&
                 (
                     this.Website == input.Website ||
                     (this.Website != null &&
                     this.Website.Equals(input.Website))
-                ) && 
+                ) &&
                 (
                     this.IrcServer == input.IrcServer ||
                     (this.IrcServer != null &&
                     this.IrcServer.Equals(input.IrcServer))
-                ) && 
+                ) &&
                 (
                     this.IrcChannel == input.IrcChannel ||
                     (this.IrcChannel != null &&
                     this.IrcChannel.Equals(input.IrcChannel))
-                ) && 
+                ) &&
                 (
                     this.Discord == input.Discord ||
                     (this.Discord != null &&
                     this.Discord.Equals(input.Discord))
-                ) && 
+                ) &&
                 (
                     this.ContactEmail == input.ContactEmail ||
                     (this.ContactEmail != null &&
                     this.ContactEmail.Equals(input.ContactEmail))
-                ) && 
+                ) &&
                 (
                     this.Description == input.Description ||
                     (this.Description != null &&
                     this.Description.Equals(input.Description))
-                ) && 
+                ) &&
                 (
                     this.Twitter == input.Twitter ||
                     (this.Twitter != null &&
                     this.Twitter.Equals(input.Twitter))
-                ) && 
+                ) &&
                 (
                     this.MangaUpdates == input.MangaUpdates ||
                     (this.MangaUpdates != null &&
                     this.MangaUpdates.Equals(input.MangaUpdates))
-                ) && 
+                ) &&
                 (
                     this.Inactive == input.Inactive ||
                     this.Inactive.Equals(input.Inactive)
-                ) && 
+                ) &&
                 (
                     this.PublishDelay == input.PublishDelay ||
                     (this.PublishDelay != null &&
@@ -317,41 +312,43 @@ namespace MangaDex.Model
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            if (this.Twitter != null) {
+            if (this.Twitter != null)
+            {
                 // Twitter (string) pattern
-Regex regexTwitter = new Regex(@"^https?://twitter\.com", RegexOptions.CultureInvariant);
-if (!regexTwitter.Match(this.Twitter).Success)
-{
-    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Twitter, must match a pattern of " + regexTwitter, new [] { "Twitter" });
-}
+                Regex regexTwitter = new Regex(@"^https?://twitter\.com", RegexOptions.CultureInvariant);
+                if (!regexTwitter.Match(this.Twitter).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Twitter, must match a pattern of " + regexTwitter, new[] { "Twitter" });
+                }
             }
 
             // MangaUpdates (string) maxLength
             if (this.MangaUpdates != null && this.MangaUpdates.Length > 128)
             {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for MangaUpdates, length must be less than 128.", new [] { "MangaUpdates" });
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for MangaUpdates, length must be less than 128.", new[] { "MangaUpdates" });
             }
 
-            if (this.MangaUpdates != null) {
+            if (this.MangaUpdates != null)
+            {
                 // MangaUpdates (string) pattern
-Regex regexMangaUpdates = new Regex(@"^https:\/\/www\.mangaupdates\.com\/(group|publisher)(s\.html\?id=\d+|\/[\w-]+\/?([\w-]+)?(\/)?)$", RegexOptions.CultureInvariant);
-if (!regexMangaUpdates.Match(this.MangaUpdates).Success)
-{
-    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for MangaUpdates, must match a pattern of " + regexMangaUpdates, new [] { "MangaUpdates" });
-}
+                Regex regexMangaUpdates = new Regex(@"^https:\/\/www\.mangaupdates\.com\/(group|publisher)(s\.html\?id=\d+|\/[\w-]+\/?([\w-]+)?(\/)?)$", RegexOptions.CultureInvariant);
+                if (!regexMangaUpdates.Match(this.MangaUpdates).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for MangaUpdates, must match a pattern of " + regexMangaUpdates, new[] { "MangaUpdates" });
+                }
             }
 
-            if (this.PublishDelay != null) {
+            if (this.PublishDelay != null)
+            {
                 // PublishDelay (string) pattern
-Regex regexPublishDelay = new Regex(@"^P(([1-9]|[1-9][0-9])D)?(([1-9])W)?(T(([1-9]|1[0-9]|2[0-4])H)?(([1-9]|[1-5][0-9]|60)M)?(([1-9]|[1-5][0-9]|60)S)?)?$", RegexOptions.CultureInvariant);
-if (!regexPublishDelay.Match(this.PublishDelay).Success)
-{
-    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for PublishDelay, must match a pattern of " + regexPublishDelay, new [] { "PublishDelay" });
-}
+                Regex regexPublishDelay = new Regex(@"^P(([1-9]|[1-9][0-9])D)?(([1-9])W)?(T(([1-9]|1[0-9]|2[0-4])H)?(([1-9]|[1-5][0-9]|60)M)?(([1-9]|[1-5][0-9]|60)S)?)?$", RegexOptions.CultureInvariant);
+                if (!regexPublishDelay.Match(this.PublishDelay).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for PublishDelay, must match a pattern of " + regexPublishDelay, new[] { "PublishDelay" });
+                }
             }
 
             yield break;
         }
     }
-
 }

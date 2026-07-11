@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Refit;
 using MangaDex.Model;
+using Refit;
 
 namespace MangaDex.Api
 {
@@ -14,8 +14,8 @@ namespace MangaDex.Api
         [Get("/report")]
         Task<ReportListResponse> GetReports(int? limit = null, int? offset = null, string category = null, Guid? reasonId = null, Guid? objectId = null, string status = null, [Query] IDictionary<string, string> order = null /* deepObject */, [Query(CollectionFormat.Multi), AliasAs("includes[]")] List<string> includes = null);
 
-        [Post("/report")] [Headers("Content-Type: application/json")]
+        [Post("/report")]
+        [Headers("Content-Type: application/json")]
         Task<Response> PostReport([Body] PostReportRequest postReportRequest = null);
-
     }
 }

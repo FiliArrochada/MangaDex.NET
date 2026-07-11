@@ -7,20 +7,12 @@
  * Contact: support@mangadex.org
  */
 
-
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.IO;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.ComponentModel.DataAnnotations;
-using OpenAPIDateConverter = MangaDex.Client.OpenAPIDateConverter;
 
 namespace MangaDex.Model
 {
@@ -49,7 +41,6 @@ namespace MangaDex.Model
             Desc = 2
         }
 
-
         /// <summary>
         /// Gets or Sets Score
         /// </summary>
@@ -57,6 +48,7 @@ namespace MangaDex.Model
         [JsonPropertyName("score")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public ScoreEnum? Score { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GetMangaIdRecommendationOrderParameter" /> class.
         /// </summary>
@@ -140,5 +132,4 @@ namespace MangaDex.Model
             yield break;
         }
     }
-
 }
