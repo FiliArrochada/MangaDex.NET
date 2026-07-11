@@ -286,17 +286,5 @@ namespace MangaDex.Test
             var json = JsonSerializer.Serialize(order, Options);
             Assert.Contains("\"score\":\"desc\"", json);
         }
-
-        // ---------- ClientUtils.Serialize helper ----------
-
-        [Fact]
-        public void ClientUtils_Serialize_Uses_SystemTextJson()
-        {
-            var attrs = new MangaAttributes(originalLanguage: "en");
-            var json = ClientUtils.Serialize(attrs);
-            Assert.NotNull(json);
-            Assert.Contains("\"originalLanguage\":\"en\"", json);
-            Assert.Null(ClientUtils.Serialize(null));
-        }
     }
 }

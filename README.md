@@ -52,55 +52,64 @@ Generate the DLL using your preferred tool (e.g. `dotnet build`)
 
 Then include the DLL (under the `bin` folder) in the C# project, and use the namespaces:
 ```csharp
-using MangaDex.Api;
-using MangaDex.Client;
+using MangaDex.Api.Refit;   // the Refit interfaces (IMangaApi, IChapterApi, ...)
+using MangaDex.Client;      // SerializerOptions
 using MangaDex.Model;
+using Refit;
 ```
+
+This client is a set of [Refit](https://github.com/reactiveui/refit) interfaces. You build a
+client with an `HttpClient` and `RefitSettings` that reuses the library's `System.Text.Json`
+options; auth and proxying are configured on the `HttpClient`/`HttpClientHandler`.
+
 <a id="usage"></a>
 ## Usage
 
-To use the API client with a HTTP proxy, setup a `System.Net.WebProxy`
+To route through an HTTP proxy (and add a bearer token), configure the `HttpClient`:
 ```csharp
-Configuration c = new Configuration();
-System.Net.WebProxy webProxy = new System.Net.WebProxy("http://myProxyUrl:80/");
-webProxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
-c.Proxy = webProxy;
+var handler = new HttpClientHandler
+{
+    Proxy = new System.Net.WebProxy("http://myProxyUrl:80/"),
+    UseProxy = true,
+};
+var http = new HttpClient(handler) { BaseAddress = new Uri("https://api.mangadex.org") };
+http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 ```
 
 <a id="getting-started"></a>
 ## Getting Started
 
 ```csharp
-using System.Collections.Generic;
+using System;
 using System.Diagnostics;
-using MangaDex.Api;
+using System.Net.Http;
+using MangaDex.Api.Refit;
 using MangaDex.Client;
-using MangaDex.Model;
+using Refit;
 
 namespace Example
 {
     public class Example
     {
-        public static void Main()
+        public static async System.Threading.Tasks.Task Main()
         {
+            var settings = new RefitSettings(
+                new SystemTextJsonContentSerializer(SerializerOptions.Default));
 
-            Configuration config = new Configuration();
-            config.BasePath = "https://api.mangadex.org";
-            var apiInstance = new InfrastructureApi(config);
+            var http = new HttpClient { BaseAddress = new Uri("https://api.mangadex.org") };
+            var infrastructure = RestService.For<IInfrastructureApi>(http, settings);
 
             try
             {
                 // Ping healthcheck
-                string result = apiInstance.GetPing();
+                string result = await infrastructure.GetPing();
                 Debug.WriteLine(result);
             }
-            catch (ApiException e)
+            catch (ApiException e)  // Refit.ApiException
             {
-                Debug.Print("Exception when calling InfrastructureApi.GetPing: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
-                Debug.Print(e.StackTrace);
+                Debug.Print("Exception when calling IInfrastructureApi.GetPing: " + e.Message);
+                Debug.Print("Status Code: " + (int)e.StatusCode);
             }
-
         }
     }
 }
