@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Refit;
 using MangaDex.Model;
 
-namespace MangaDex.Api.Refit
+namespace MangaDex.Api
 {
     public interface IUserApi
     {
