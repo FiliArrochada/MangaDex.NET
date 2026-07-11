@@ -1,4 +1,3 @@
-// GENERATED Refit scaffold for UserApi — prototype, not wired into the build (needs Refit).
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

@@ -15,7 +15,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using MangaDex.Api.Refit;
+using MangaDex.Api;
 using MangaDex.Client;
 using Refit;
 

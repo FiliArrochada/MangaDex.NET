@@ -6,10 +6,10 @@
     <AssemblyName>MangaDex</AssemblyName>
     <PackageId>MangaDex</PackageId>
     <OutputType>Library</OutputType>
-    <Authors>OpenAPI</Authors>
-    <Company>OpenAPI</Company>
-    <AssemblyTitle>OpenAPI Library</AssemblyTitle>
-    <Description>A library generated from a OpenAPI doc</Description>
+    <Authors>MangaDex.NET</Authors>
+    <Company>MangaDex.NET</Company>
+    <AssemblyTitle>MangaDex API Client</AssemblyTitle>
+    <Description>A .NET client library for the MangaDex API.</Description>
     <Copyright>No Copyright</Copyright>
     <RootNamespace>MangaDex</RootNamespace>
     <Version>0.1.0</Version>
