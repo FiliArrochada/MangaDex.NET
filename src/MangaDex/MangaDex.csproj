@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo><!-- setting GenerateAssemblyInfo to false causes this bug https://github.com/dotnet/project-system/issues/3934 -->
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo><!-- emits AssemblyVersion/FileVersion from <Version> (fixes Sonar S3904); the old project-system#3934 bug no longer applies on modern SDKs -->
     <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>MangaDex</AssemblyName>
     <PackageId>MangaDex</PackageId>

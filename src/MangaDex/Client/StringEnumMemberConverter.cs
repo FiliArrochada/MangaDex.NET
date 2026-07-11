@@ -40,11 +40,13 @@ namespace MangaDex.Client
             return (JsonConverter)Activator.CreateInstance(converterType);
         }
 
-        private class EnumMemberConverter<T> : JsonConverter<T> where T : struct, Enum
+        private sealed class EnumMemberConverter<T> : JsonConverter<T> where T : struct, Enum
         {
             private readonly Dictionary<string, T> _read = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase);
             private readonly Dictionary<T, string> _write = new Dictionary<T, string>();
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Minor Code Smell", "S1144:Unused private types or members should be removed",
+                Justification = "Instantiated reflectively via Activator.CreateInstance in CreateConverter.")]
             public EnumMemberConverter()
             {
                 foreach (var name in Enum.GetNames(typeof(T)))
