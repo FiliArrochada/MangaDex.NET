@@ -1,10 +1,38 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36930.0 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{460DE54F-28BB-4B2C-A6EC-C0ECDD90ECA2}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaDex", "src\MangaDex\MangaDex.csproj", "{4E312251-421B-4669-839D-5995E3E88595}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaDex.Test", "src\MangaDex.Test\MangaDex.Test.csproj", "{19F1DEBC-DE5E-4517-8062-F000CD499087}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{7A096C5F-82BB-4499-806F-FF636A1F7378}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{101A45C5-0BFC-4588-B01A-4B92861806C0}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\ci.yml = .github\workflows\ci.yml
+		.github\workflows\release.yml = .github\workflows\release.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solution-items", ".solution-items", "{0784CFD2-4006-4C3A-8E0C-BECD0DBC299A}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		LICENSE.txt = LICENSE.txt
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{A5CF12A5-E9CF-415E-AA29-3C151642BB5D}"
+	ProjectSection(SolutionItems) = preProject
+		api\openapi.yaml = api\openapi.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{04017AC5-2502-43EE-9D19-A447FF06403D}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\check-spec-version.cs = scripts\check-spec-version.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,5 +51,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4E312251-421B-4669-839D-5995E3E88595} = {460DE54F-28BB-4B2C-A6EC-C0ECDD90ECA2}
+		{19F1DEBC-DE5E-4517-8062-F000CD499087} = {460DE54F-28BB-4B2C-A6EC-C0ECDD90ECA2}
+		{101A45C5-0BFC-4588-B01A-4B92861806C0} = {7A096C5F-82BB-4499-806F-FF636A1F7378}
 	EndGlobalSection
 EndGlobal
