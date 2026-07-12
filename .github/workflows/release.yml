@@ -8,7 +8,12 @@ name: Release to NuGet
 # run it manually (workflow_dispatch) with an explicit version, or leave the
 # version blank to pack the <Version> from MangaDex.csproj as-is.
 #
-# Requires repository secret: NUGET_API_KEY (an api.nuget.org push key).
+# Publishing uses nuget.org Trusted Publishing (OIDC) — no long-lived API key.
+# nuget.org side: create a Trusted Publishing policy under your profile with
+#   Repository Owner: filipe-silva   Repository: MangaDex.NET   Workflow File: release.yml
+# (leave Environment blank unless you add `environment:` to the job below).
+# GitHub side: the only secret needed is NUGET_USER = your nuget.org profile name
+# (the account username, NOT your email). The job requests a short-lived key at run time.
 
 on:
   release:
@@ -21,6 +26,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write   # required for Trusted Publishing: lets the job request a GitHub OIDC token
 
 jobs:
   release:
@@ -65,9 +71,17 @@ jobs:
           [ -n "${{ steps.ver.outputs.version }}" ] && ver_arg="-p:Version=${{ steps.ver.outputs.version }}"
           dotnet pack src/MangaDex/MangaDex.csproj -c Release --no-build -o artifacts $ver_arg
 
+      # Exchange the GitHub OIDC token for a short-lived nuget.org API key.
+      # Done right before push: the key is valid for only 1 hour.
+      - name: NuGet login (OIDC → temporary API key)
+        id: login
+        uses: NuGet/login@v1
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
       - name: Push to NuGet
         run: >
           dotnet nuget push "artifacts/*.nupkg"
-          --api-key "${{ secrets.NUGET_API_KEY }}"
+          --api-key "${{ steps.login.outputs.NUGET_API_KEY }}"
           --source https://api.nuget.org/v3/index.json
           --skip-duplicate

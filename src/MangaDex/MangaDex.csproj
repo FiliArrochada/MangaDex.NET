@@ -19,7 +19,7 @@
     <!-- CS1591: undocumented members (generated Refit interfaces); CS8073: value-type != null in generated Equals -->
     <NoWarn>$(NoWarn);CS1591;CS8073</NoWarn>
     <PackageProjectUrl>https://github.com/filipe-silva/MangaDex.NET</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/filipe-silva/MangaDex.NET.gitt</RepositoryUrl>
+    <RepositoryUrl>https://github.com/filipe-silva/MangaDex.NET.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>First Refit-native release: typed Refit interfaces over the MangaDex API (5.13.1) with System.Text.Json serialization.</PackageReleaseNotes>
