@@ -3,7 +3,9 @@
 	<PropertyGroup>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<!-- emits AssemblyVersion/FileVersion from <Version> (fixes Sonar S3904); the old project-system#3934 bug no longer applies on modern SDKs -->
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFrameworks>net8.0;net48</TargetFrameworks>
+		<!-- net48 defaults to C# 7.3; the source is kept compatible, but pin explicitly -->
+		<LangVersion>latest</LangVersion>
 		<AssemblyName>MangaDex</AssemblyName>
 		<PackageId>MangaDex</PackageId>
 		<OutputType>Library</OutputType>
@@ -28,9 +30,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="System.Text.Json" Version="10.0.9" />
-		<PackageReference Include="Refit" Version="13.1.0" />
-		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+		<PackageReference Include="System.Text.Json" />
+		<PackageReference Include="Refit" />
+		<PackageReference Include="System.ComponentModel.Annotations" />
 	</ItemGroup>
 
 	<ItemGroup>

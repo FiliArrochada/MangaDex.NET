@@ -26,7 +26,9 @@ permissions:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    # windows-latest: the library multi-targets net8.0;net48, and the net48
+    # build/tests need the .NET Framework targeting pack + runtime.
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
 

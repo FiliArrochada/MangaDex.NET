@@ -17,7 +17,6 @@ using System.Collections.Generic;
 using MangaDex.Model;
 using MangaDex.Client;
 using System.Reflection;
-using Newtonsoft.Json;
 
 namespace MangaDex.Test.Model
 {
