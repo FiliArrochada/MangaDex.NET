@@ -11,6 +11,11 @@
 			"matchManagers": ["nuget"],
 			"matchUpdateTypes": ["minor", "patch"],
 			"groupName": "nuget non-major dependencies"
+		},
+		{
+			"description": "Refit.Reflection must stay version-locked to Refit — always bump together",
+			"matchPackageNames": ["Refit", "Refit.Reflection"],
+			"groupName": "refit"
 		}
 	]
 }

@@ -60,6 +60,11 @@ Auth (bearer token) and proxying are configured on the `HttpClient`/`HttpClientH
 `DelegatingHandler` — not baked into the interfaces. `RefitSlice.cs` in the test project shows the
 production glue pattern (`BearerTokenHandler`).
 
+Since Refit 14 the reflection request builder lives in the separate `Refit.Reflection` package.
+The deepObject dictionary params (`IMangaApi.GetSearchManga`, `IChapterApi.GetChapter`) can't be
+source-generated (RF006, suppressed via NoWarn), so the library references `Refit.Reflection`
+directly to keep `RestService.For<T>` working for consumers. Keep it version-locked to `Refit`.
+
 ## Refit interface conventions (important when editing/adding endpoints)
 
 The interfaces encode MangaDex's non-trivial query-string shapes. Match these exactly:
