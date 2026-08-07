@@ -4,7 +4,9 @@ name: Release to NuGet
 #
 # The package version is always the <Version> from MangaDex.csproj — bump it there before releasing.
 # Trigger by publishing a GitHub Release (the tag is just a marker; it does not set the version)
-# or run it manually (workflow_dispatch).
+# or run it manually (workflow_dispatch). Manual runs create the matching v<version> GitHub
+# release/tag after a successful push (if it doesn't already exist), so the release history
+# stays in sync with nuget.org.
 #
 # Publishing uses nuget.org Trusted Publishing (OIDC) — no long-lived API key.
 # nuget.org side: create a Trusted Publishing policy under your profile with
@@ -18,10 +20,11 @@ name: Release to NuGet
 on:
   release:
     types: [published]
-    
+  workflow_dispatch:
+
 
 permissions:
-  contents: read
+  contents: write   # write: manual runs create the v<version> release/tag after publishing
   id-token: write   # required for Trusted Publishing: lets the job request a GitHub OIDC token
 
 jobs:
@@ -58,8 +61,27 @@ jobs:
           user: ${{ secrets.NUGET_USER }}
 
       - name: Push to NuGet
+        # Backslash on purpose: on Windows runners, dotnet nuget push does not expand
+        # wildcards in forward-slash paths ("File does not exist (artifacts/*.nupkg)").
         run: >
-          dotnet nuget push "artifacts/*.nupkg"
+          dotnet nuget push "artifacts\*.nupkg"
           --api-key "${{ steps.login.outputs.NUGET_API_KEY }}"
           --source https://api.nuget.org/v3/index.json
           --skip-duplicate
+
+      # Manual runs have no GitHub Release yet — create the matching v<version> release/tag
+      # so the repo's release history stays in sync with what was just published.
+      # (Releases created with the default GITHUB_TOKEN do not re-trigger this workflow.)
+      - name: Create GitHub release (manual runs only)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $version = (Select-Xml -Path src/MangaDex/MangaDex.csproj -XPath '//Version').Node.InnerText.Trim()
+          $tag = "v$version"
+          gh release view $tag 2>$null
+          if ($LASTEXITCODE -eq 0) {
+            Write-Host "Release $tag already exists - nothing to do."
+          } else {
+            gh release create $tag --title $tag --generate-notes
+          }
