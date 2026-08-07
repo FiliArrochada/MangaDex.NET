@@ -17,7 +17,7 @@
 		<RootNamespace>MangaDex</RootNamespace>
 		<!-- Version tracks the MangaDex API version (Major.Minor.Patch); 
 		 the 4th revision component is bumped for client-only fixes against the same API version (e.g. 5.13.1.1). -->
-		<Version>5.13.1.1</Version>
+		<Version>5.13.1.2</Version>
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\MangaDex.xml</DocumentationFile>
 		<!-- CS1591: undocumented members (generated Refit interfaces); CS8073: value-type != null in generated Equals;
          RF006: deepObject dictionary params fall back to the reflection request builder — expected,
