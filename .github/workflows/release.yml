@@ -3,10 +3,9 @@ name: Release to NuGet
 # Publishes the MangaDex package to nuget.org.
 #
 # The package version is always the <Version> from MangaDex.csproj — bump it there before releasing.
-# Trigger by publishing a GitHub Release (the tag is just a marker; it does not set the version)
-# or run it manually (workflow_dispatch). Manual runs create the matching v<version> GitHub
-# release/tag after a successful push (if it doesn't already exist), so the release history
-# stays in sync with nuget.org.
+# Manual trigger only (workflow_dispatch): run it from the Actions tab. After a successful push
+# it creates the matching v<version> GitHub release/tag (if it doesn't already exist), so the
+# release history stays in sync with nuget.org.
 #
 # Publishing uses nuget.org Trusted Publishing (OIDC) — no long-lived API key.
 # nuget.org side: create a Trusted Publishing policy under your profile with
@@ -18,13 +17,11 @@ name: Release to NuGet
 # The job requests a short-lived key at run time.
 
 on:
-  release:
-    types: [published]
   workflow_dispatch:
 
 
 permissions:
-  contents: write   # write: manual runs create the v<version> release/tag after publishing
+  contents: write   # write: creates the v<version> release/tag after publishing
   id-token: write   # required for Trusted Publishing: lets the job request a GitHub OIDC token
 
 jobs:
@@ -69,11 +66,9 @@ jobs:
           --source https://api.nuget.org/v3/index.json
           --skip-duplicate
 
-      # Manual runs have no GitHub Release yet — create the matching v<version> release/tag
-      # so the repo's release history stays in sync with what was just published.
-      # (Releases created with the default GITHUB_TOKEN do not re-trigger this workflow.)
-      - name: Create GitHub release (manual runs only)
-        if: github.event_name == 'workflow_dispatch'
+      # Create the matching v<version> release/tag so the repo's release history
+      # stays in sync with what was just published (skipped if it already exists).
+      - name: Create GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
