@@ -27,8 +27,9 @@ dotnet run scripts/check-spec-version.cs -- --diff
 ```
 
 Both projects multi-target **net8.0;net48** (`dotnet test` runs the suite on both). Tests use
-**xUnit**. NuGet versions are centrally managed in `Directory.Packages.props` (CPM) — `PackageReference`
-entries in the csprojs carry no `Version` attribute.
+**xUnit v3** (`xunit.v3` — the test project builds as an executable). NuGet versions are centrally
+managed in `Directory.Packages.props` (CPM) — `PackageReference` entries in the csprojs carry no
+`Version` attribute. Dependency updates are automated via Renovate (`renovate.json`).
 
 ## Layout
 

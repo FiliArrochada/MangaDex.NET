@@ -4,6 +4,8 @@
     <AssemblyName>MangaDex.Test</AssemblyName>
     <RootNamespace>MangaDex.Test</RootNamespace>
     <TargetFrameworks>net8.0;net48</TargetFrameworks>
+    <!-- xunit.v3 test projects are executables (in-process runner) -->
+    <OutputType>Exe</OutputType>
     <IsPackable>false</IsPackable>
     <Nullable>disable</Nullable>
     <LangVersion>latest</LangVersion>
@@ -11,7 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.v3" />
     <PackageReference Include="xunit.runner.visualstudio" />
   </ItemGroup>
 
