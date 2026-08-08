@@ -18,15 +18,16 @@ These may change at any time for any and no reason and it is up to you check for
 If you believe you found a security issue in our API, please check our [security.txt](/security.txt) to get in touch privately.
 
 
-This C# SDK is a hand-maintained client for the MangaDex API, built on Refit and System.Text.Json. It is kept in sync with the MangaDex OpenAPI specification (`api/openapi.yaml`) manually — updates are applied directly to the source.
+This C# SDK is a hand-maintained client for the MangaDex API, built on Refit and System.Text.Json. It is kept in sync with the MangaDex OpenAPI specification (`api/openapi-<version>.yaml`, one file per API version — the highest version is current) manually — updates are applied directly to the source.
 
 - API version: 5.13.1
 - SDK version: 5.13.1 (tracks the API version; a 4th revision component — e.g. 5.13.1.1 — denotes client-only fixes)
-- Source specification: [api/openapi.yaml](api/openapi.yaml)
+- Source specification: [api/openapi-5.13.1.yaml](api/openapi-5.13.1.yaml)
 
 <a id="frameworks-supported"></a>
 ## Frameworks supported
 - .NET 8.0
+- .NET Framework 4.8
 
 <a id="dependencies"></a>
 ## Dependencies

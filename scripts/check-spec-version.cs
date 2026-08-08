@@ -6,6 +6,9 @@
  * date with the spec MangaDex publishes upstream. This client is effectively a typed proxy over
  * the MangaDex REST API, so this reports whether the proxy has drifted from the live contract.
  *
+ * Local specs live in api/openapi-<version>.yaml (one file per API version, kept as history);
+ * the highest-versioned file is treated as current. Override with LOCAL_SPEC if needed.
+ *
  * Dependencies: only the .NET SDK, which is already required to build this repo. There is NO
  * package/NuGet dependency (uses the BCL only).
  *
@@ -30,18 +33,18 @@ string specUrl = Environment.GetEnvironmentVariable("SPEC_URL")
                  ?? "https://api.mangadex.org/docs/static/api.yaml";
 bool showDiff = args.Contains("--diff");
 
-// Local spec defaults to <repo>/api/openapi.yaml (this file lives in <repo>/scripts).
+// Local spec defaults to the highest-versioned <repo>/api/openapi-<version>.yaml.
+// The api/ folder keeps one file per API version as history; the latest is the
+// version this client currently mirrors.
 string localSpec = Environment.GetEnvironmentVariable("LOCAL_SPEC") ?? "";
 if (string.IsNullOrEmpty(localSpec))
 {
-    var scriptDir = AppContext.BaseDirectory;
-    // Walk up to find the repo root (folder containing 'api/openapi.yaml').
+    // Walk up to find the repo root (folder containing 'api' with versioned specs).
     var dir = new DirectoryInfo(Directory.GetCurrentDirectory());
-    while (dir != null && !File.Exists(Path.Combine(dir.FullName, "api", "openapi.yaml")))
+    while (dir != null && LatestSpec(Path.Combine(dir.FullName, "api")) == null)
         dir = dir.Parent;
-    localSpec = dir != null
-        ? Path.Combine(dir.FullName, "api", "openapi.yaml")
-        : Path.Combine("api", "openapi.yaml");
+    localSpec = (dir != null ? LatestSpec(Path.Combine(dir.FullName, "api")) : null)
+                ?? Path.Combine("api", "openapi-0.0.0.yaml"); // nonexistent → clear error below
 }
 
 int Fail(string msg) { Console.Error.WriteLine($"ERROR: {msg}"); return 2; }
@@ -114,6 +117,20 @@ if (showDiff)
 return drift ? 1 : 0;
 
 // ---------- helpers ----------
+
+// Pick the highest-versioned 'openapi-<version>.yaml' in the given directory, or null.
+static string? LatestSpec(string apiDir)
+{
+    if (!Directory.Exists(apiDir)) return null;
+    return Directory.EnumerateFiles(apiDir, "openapi-*.yaml")
+        .Select(f => (File: f, Ver: ParseVersion(Path.GetFileNameWithoutExtension(f).Substring("openapi-".Length))))
+        .Where(x => x.Ver != null)
+        .OrderByDescending(x => x.Ver)
+        .Select(x => x.File)
+        .FirstOrDefault();
+}
+
+static Version? ParseVersion(string s) => Version.TryParse(s, out var v) ? v : null;
 
 // Extract info.version (line-based; no multi-line regex backtracking on large specs).
 static string? GetVersion(string yaml)

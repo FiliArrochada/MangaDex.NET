@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solution-items", ".solutio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{A5CF12A5-E9CF-415E-AA29-3C151642BB5D}"
 	ProjectSection(SolutionItems) = preProject
-		api\openapi.yaml = api\openapi.yaml
+		api\openapi-5.13.1.yaml = api\openapi-5.13.1.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{04017AC5-2502-43EE-9D19-A447FF06403D}"

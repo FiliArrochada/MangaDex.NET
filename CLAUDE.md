@@ -6,8 +6,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 A hand-maintained C# client library for the MangaDex REST API (`https://api.mangadex.org`).
 The client is a set of **Refit** interfaces serialized with **System.Text.Json**. It is a typed
-proxy over the live API and is kept in sync with the MangaDex OpenAPI spec (`api/openapi.yaml`)
-**manually** — there is no code generator in this repo. When the spec changes, edits are applied
+proxy over the live API and is kept in sync with the MangaDex OpenAPI spec
+(`api/openapi-<version>.yaml`, highest version = current) **manually** — there is no code
+generator in this repo. When the spec changes, edits are applied
 directly to the interface and model source. Current: API 5.13.1, SDK 0.1.0.
 
 ## Commands
@@ -42,8 +43,11 @@ managed in `Directory.Packages.props` (CPM) — `PackageReference` entries in th
     `OpenAPIDateConverter`.
 - `src/MangaDex.Test/` — xUnit tests: per-model tests under `Model/`, and the Refit
   vertical-slice tests under `Refit/`.
-- `api/openapi.yaml` — the source-of-truth spec this client mirrors.
-- `scripts/check-spec-version.cs` — upstream drift checker.
+- `api/openapi-<version>.yaml` — the specs this client mirrors, one file per API version kept
+  as history; the highest-versioned file is the current source of truth. When the API updates,
+  add a new file alongside the old ones (don't overwrite).
+- `scripts/check-spec-version.cs` — upstream drift checker (compares the latest local spec).
+  `.github/workflows/spec-drift.yml` runs it weekly and opens/closes a `spec-drift` issue.
 
 ## How the client is meant to be used
 
