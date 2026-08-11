@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<!-- emits AssemblyVersion/FileVersion from <Version> (fixes Sonar S3904); the old project-system#3934 bug no longer applies on modern SDKs -->
-		<TargetFrameworks>net8.0;net48</TargetFrameworks>
+		<TargetFrameworks>net10.0;net48</TargetFrameworks>
 		<!-- net48 defaults to C# 7.3; the source is kept compatible, but pin explicitly -->
 		<LangVersion>latest</LangVersion>
 		<AssemblyName>MangaDex</AssemblyName>
@@ -17,7 +17,7 @@
 		<RootNamespace>MangaDex</RootNamespace>
 		<!-- Version tracks the MangaDex API version (Major.Minor.Patch); 
 		 the 4th revision component is bumped for client-only fixes against the same API version (e.g. 5.13.1.1). -->
-		<Version>5.13.1.2</Version>
+		<Version>5.13.1.3</Version>
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\MangaDex.xml</DocumentationFile>
 		<!-- CS1591: undocumented members (generated Refit interfaces); CS8073: value-type != null in generated Equals;
          RF006: deepObject dictionary params fall back to the reflection request builder — expected,
@@ -28,7 +28,7 @@
 		<RepositoryUrl>https://github.com/filipe-silva/MangaDex.NET.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageReleaseNotes>First Refit-native release: typed Refit interfaces over the MangaDex API with System.Text.Json serialization.</PackageReleaseNotes>
+		<PackageReleaseNotes>Multi-targets net10.0 and net48. Same MangaDex API surface (5.13.1).</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -23,11 +23,11 @@ dotnet test --filter "FullyQualifiedName~RefitMangaApiTests"
 dotnet test --filter "FullyQualifiedName~RefitMangaApiTests.BearerHandler_Attaches_Authorization"
 
 # Check whether the vendored spec has drifted from MangaDex's upstream spec.
-# This is a .NET 10 file-based app (needs the .NET 10 SDK; the library itself targets net8.0/net48).
+# This is a .NET 10 file-based app (the library itself targets net10.0/net48).
 dotnet run scripts/check-spec-version.cs -- --diff
 ```
 
-Both projects multi-target **net8.0;net48** (`dotnet test` runs the suite on both). Tests use
+Both projects multi-target **net10.0;net48** (`dotnet test` runs the suite on both). Tests use
 **xUnit v3** (`xunit.v3` — the test project builds as an executable). NuGet versions are centrally
 managed in `Directory.Packages.props` (CPM) — `PackageReference` entries in the csprojs carry no
 `Version` attribute. Dependency updates are automated via Renovate (`renovate.json`).

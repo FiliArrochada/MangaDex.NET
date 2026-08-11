@@ -26,7 +26,7 @@ permissions:
 
 jobs:
   release:
-    # windows-latest: the library multi-targets net8.0;net48, and the net48
+    # windows-latest: the library multi-targets net10.0;net48, and the net48
     # build/tests need the .NET Framework targeting pack + runtime.
     runs-on: windows-latest
     steps:
@@ -35,7 +35,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 10.0.x
 
       - name: Restore
         run: dotnet restore MangaDex.sln
@@ -69,6 +69,7 @@ jobs:
       # Create the matching v<version> release/tag so the repo's release history
       # stays in sync with what was just published (skipped if it already exists).
       - name: Create GitHub release
+        shell: bash   # the job runs on windows-latest, where the default shell is pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   build-test:
-    # windows-latest: the library multi-targets net8.0;net48, and the net48
+    # windows-latest: the library multi-targets net10.0;net48, and the net48
     # build/tests need the .NET Framework targeting pack + runtime.
     runs-on: windows-latest
     steps:
@@ -26,7 +26,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 10.0.x
 
       - name: Restore
         run: dotnet restore MangaDex.sln

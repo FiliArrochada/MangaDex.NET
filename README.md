@@ -26,7 +26,7 @@ This C# SDK is a hand-maintained client for the MangaDex API, built on Refit and
 
 <a id="frameworks-supported"></a>
 ## Frameworks supported
-- .NET 8.0
+- .NET 10.0
 - .NET Framework 4.8
 
 <a id="dependencies"></a>

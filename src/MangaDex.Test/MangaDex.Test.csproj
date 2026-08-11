@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyName>MangaDex.Test</AssemblyName>
     <RootNamespace>MangaDex.Test</RootNamespace>
-    <TargetFrameworks>net8.0;net48</TargetFrameworks>
+    <TargetFrameworks>net10.0;net48</TargetFrameworks>
     <!-- xunit.v3 test projects are executables (in-process runner) -->
     <OutputType>Exe</OutputType>
     <IsPackable>false</IsPackable>
