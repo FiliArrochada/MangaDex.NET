@@ -69,7 +69,7 @@ jobs:
       # Create the matching v<version> release/tag so the repo's release history
       # stays in sync with what was just published (skipped if it already exists).
       - name: Create GitHub release
-        shell: bash   # the job runs on windows-latest, where the default shell is pwsh
+        # this step's script is PowerShell — the runner's default pwsh is correct; do NOT pin bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
