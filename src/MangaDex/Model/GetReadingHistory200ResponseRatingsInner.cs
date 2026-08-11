@@ -25,12 +25,18 @@ namespace MangaDex.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="GetReadingHistory200ResponseRatingsInner" /> class.
         /// </summary>
+        [JsonConstructorAttribute]
+        protected GetReadingHistory200ResponseRatingsInner() { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetReadingHistory200ResponseRatingsInner" /> class.
+        /// </summary>
         /// <param name="chapterId">chapterId.</param>
         /// <param name="readDate">readDate.</param>
-        public GetReadingHistory200ResponseRatingsInner(string chapterId = default(string), DateTime readDate = default(DateTime))
+        public GetReadingHistory200ResponseRatingsInner(string chapterId = default(string), DateTime? readDate = default(DateTime?))
         {
             this.ChapterId = chapterId;
-            this.ReadDate = readDate;
+            this.ReadDate = readDate ?? default(DateTime);
         }
 
         /// <summary>

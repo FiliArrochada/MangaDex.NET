@@ -25,15 +25,21 @@ namespace MangaDex.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="PostSettings200Response" /> class.
         /// </summary>
+        [JsonConstructorAttribute]
+        protected PostSettings200Response() { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PostSettings200Response" /> class.
+        /// </summary>
         /// <param name="result">result (default to &quot;ok&quot;).</param>
         /// <param name="updatedAt">updatedAt.</param>
         /// <param name="settings">Settings that were validated against the linked template.</param>
         /// <param name="template">Settings template UUID.</param>
-        public PostSettings200Response(string result = @"ok", DateTime updatedAt = default(DateTime), Object settings = default(Object), Guid template = default(Guid))
+        public PostSettings200Response(string result = @"ok", DateTime? updatedAt = default(DateTime?), Object settings = default(Object), Guid template = default(Guid))
         {
             // use default value if no "result" provided
             this.Result = result ?? @"ok";
-            this.UpdatedAt = updatedAt;
+            this.UpdatedAt = updatedAt ?? default(DateTime);
             this.Settings = settings;
             this.Template = template;
         }

@@ -41,8 +41,17 @@ managed in `Directory.Packages.props` (CPM) — `PackageReference` entries in th
   - `Client/` — serialization infrastructure: `SerializerOptions` (`.Default` compact,
     `.Indented` pretty), `StringEnumMemberConverter` (maps enums via `[EnumMember]` values),
     `OpenAPIDateConverter`.
-- `src/MangaDex.Test/` — xUnit tests: per-model tests under `Model/`, and the Refit
-  vertical-slice tests under `Refit/`.
+- `src/MangaDex.Test/` — xUnit tests: `SerializationTests.cs` (targeted STJ-migration behaviors:
+  enums, property naming, EmitDefaultValue, oneOf/anyOf, collections), the Refit vertical-slice
+  tests under `Refit/`, `Fixtures/` (realistic hand-built payloads in the MangaDex
+  `{ result, response, data: { id, type, attributes, relationships } }` envelope —
+  `AuthorsFixtureTests` with the localized biography dictionary, `GroupsFixtureTests` with
+  altNames/focusedLanguage and the enum `result` field), and `Model/AllModelsRoundTripTests.cs` —
+  a reflection-driven theory that
+  serialize→deserialize→serialize round-trips every constructible DTO and round-trips every enum
+  member through its `[EnumMember]` value (with a coverage-floor assertion; the abstract oneOf
+  wrappers and `*JsonConverter` helpers are excluded). It replaced the ~139 generated per-model
+  stub files, which asserted nothing.
 - `api/openapi-<version>.yaml` — the specs this client mirrors, one file per API version kept
   as history; the highest-versioned file is the current source of truth. When the API updates,
   add a new file alongside the old ones (don't overwrite).
@@ -89,6 +98,15 @@ STJ is what actually drives (de)serialization here. Each model hand-rolls `ToJso
 `SerializerOptions.Indented`), `ToString()`, value-based `Equals`/`GetHashCode`, and an
 `IValidatableObject.Validate`. When adding or changing a model, keep this full shape consistent
 with the surrounding files rather than trimming it.
+
+**net48 ctor gotcha**: an optional ctor parameter declared `DateTime x = default(DateTime)` breaks
+`ParameterInfo` reflection on .NET Framework (`FormatException` in `MdConstant.GetValue`), which STJ
+hits while building the type's metadata (`Guid`/plain-struct defaults are fine — only `DateTime`
+emits the problematic constant). Use a nullable parameter (`DateTime? x = default(DateTime?)`) with
+`?? default(DateTime)` in the body, **and** give the model a `[JsonConstructor] protected Xxx() { }`
+— otherwise modern STJ rejects the parameterized ctor because the param type no longer matches the
+property type. See `GetSettings200Response` for the pattern; full write-up in
+`guidelines/refit-api-client-sdk.md` at the workspace root.
 
 ## Testing note
 

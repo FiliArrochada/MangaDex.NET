@@ -25,12 +25,18 @@ namespace MangaDex.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="PostSettingsRequest" /> class.
         /// </summary>
+        [JsonConstructorAttribute]
+        protected PostSettingsRequest() { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PostSettingsRequest" /> class.
+        /// </summary>
         /// <param name="settings">A JSON object that can be validated against the lastest available template.</param>
         /// <param name="updatedAt">Format: 2022-03-14T13:19:37.</param>
-        public PostSettingsRequest(Object settings = default(Object), DateTime updatedAt = default(DateTime))
+        public PostSettingsRequest(Object settings = default(Object), DateTime? updatedAt = default(DateTime?))
         {
             this.Settings = settings;
-            this.UpdatedAt = updatedAt;
+            this.UpdatedAt = updatedAt ?? default(DateTime);
         }
 
         /// <summary>

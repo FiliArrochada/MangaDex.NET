@@ -25,12 +25,18 @@ namespace MangaDex.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="GetRating200ResponseRatingsValue" /> class.
         /// </summary>
+        [JsonConstructorAttribute]
+        protected GetRating200ResponseRatingsValue() { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetRating200ResponseRatingsValue" /> class.
+        /// </summary>
         /// <param name="rating">rating.</param>
         /// <param name="createdAt">createdAt.</param>
-        public GetRating200ResponseRatingsValue(int rating = default(int), DateTime createdAt = default(DateTime))
+        public GetRating200ResponseRatingsValue(int rating = default(int), DateTime? createdAt = default(DateTime?))
         {
             this.Rating = rating;
-            this.CreatedAt = createdAt;
+            this.CreatedAt = createdAt ?? default(DateTime);
         }
 
         /// <summary>
