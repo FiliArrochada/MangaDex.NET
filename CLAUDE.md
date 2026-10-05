@@ -9,7 +9,7 @@ The client is a set of **Refit** interfaces serialized with **System.Text.Json**
 proxy over the live API and is kept in sync with the MangaDex OpenAPI spec
 (`api/openapi-<version>.yaml`, highest version = current) **manually** — there is no code
 generator in this repo. When the spec changes, edits are applied
-directly to the interface and model source. Current: API 5.13.1, SDK 0.1.0.
+directly to the interface and model source.
 
 ## Commands
 
@@ -28,9 +28,8 @@ dotnet run scripts/check-spec-version.cs -- --diff
 ```
 
 Both projects multi-target **net10.0;net48** (`dotnet test` runs the suite on both). Tests use
-**xUnit v3** (`xunit.v3` — the test project builds as an executable). NuGet versions are centrally
-managed in `Directory.Packages.props` (CPM) — `PackageReference` entries in the csprojs carry no
-`Version` attribute. Dependency updates are automated via Renovate (`renovate.json`).
+**xUnit v3** (`xunit.v3` — the test project builds as an executable). Dependency updates are
+automated via Renovate (`renovate.json`).
 
 ## Layout
 
@@ -111,6 +110,7 @@ property type. See `GetSettings200Response` for the pattern; full write-up in
 ## Testing note
 
 The test suite never hits the network — `api.mangadex.org`'s edge requires TLS 1.3, which the
-Windows 10 schannel stack (used by `HttpClient`) does not provide, so live calls fail on that OS.
+Windows schannel stack (used by `HttpClient`) does not provide on older Windows versions, so live
+calls fail there.
 Refit tests use a `CapturingHandler` that records the outgoing request and returns canned JSON, so
 they assert URL/query/body construction and response parsing without a real call.
