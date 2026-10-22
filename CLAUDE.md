@@ -104,8 +104,7 @@ hits while building the type's metadata (`Guid`/plain-struct defaults are fine â
 emits the problematic constant). Use a nullable parameter (`DateTime? x = default(DateTime?)`) with
 `?? default(DateTime)` in the body, **and** give the model a `[JsonConstructor] protected Xxx() { }`
 â€” otherwise modern STJ rejects the parameterized ctor because the param type no longer matches the
-property type. See `GetSettings200Response` for the pattern; full write-up in
-`guidelines/refit-api-client-sdk.md` at the workspace root.
+property type. See `GetSettings200Response` for the pattern.
 
 ## Testing note
 
