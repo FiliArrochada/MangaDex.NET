@@ -9,11 +9,11 @@
 		<AssemblyName>MangaDex</AssemblyName>
 		<PackageId>MangaDex</PackageId>
 		<OutputType>Library</OutputType>
-		<Authors>MangaDex.NET</Authors>
-		<Company>MangaDex.NET</Company>
+		<Authors>FiliArrochada</Authors>
+		<Company>FiliArrochada</Company>
 		<AssemblyTitle>MangaDex API Client</AssemblyTitle>
 		<Description>A .NET client library for the MangaDex API.</Description>
-		<Copyright>Copyright (c) 2026 MangaDex.NET</Copyright>
+		<Copyright>Copyright (c) 2026 FiliArrochada</Copyright>
 		<RootNamespace>MangaDex</RootNamespace>
 		<!-- Version tracks the MangaDex API version (Major.Minor.Patch); 
 		 the 4th revision component is bumped for client-only fixes against the same API version (e.g. 5.13.1.1). -->
@@ -24,8 +24,8 @@
          we ship Refit.Reflection for exactly this (see the PackageReference note below) -->
 		<NoWarn>$(NoWarn);CS1591;CS8073;RF006</NoWarn>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageProjectUrl>https://github.com/filipe-silva/MangaDex.NET</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/filipe-silva/MangaDex.NET.git</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/FiliArrochada/MangaDex.NET</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/FiliArrochada/MangaDex.NET.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageReleaseNotes>Multi-targets net10.0 and net48. Same MangaDex API surface (5.13.1).</PackageReleaseNotes>
